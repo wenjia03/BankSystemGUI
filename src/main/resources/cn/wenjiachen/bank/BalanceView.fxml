@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="298.0" prefWidth="588.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.wenjiachen.bank.controller.view.BankViewController">
+   <children>
+      <Pane layoutX="55.0" layoutY="86.0" prefHeight="113.0" prefWidth="477.0" style="-fx-border-radius: 15;" styleClass="bg-success" stylesheets="@../../../bootstrapfx.css">
+         <children>
+            <Label fx:id="BankName" alignment="CENTER_RIGHT" layoutX="287.0" layoutY="14.0" prefHeight="26.0" prefWidth="171.0" text="银行名称" textAlignment="RIGHT">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label fx:id="Balance" alignment="CENTER" layoutX="145.0" layoutY="39.0" text="可用余额：1234567" textAlignment="RIGHT">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label fx:id="CardID" alignment="CENTER" layoutX="14.0" layoutY="77.0" text="1145 1419 1981 000" textAlignment="RIGHT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label layoutX="55.0" layoutY="40.0" text="您的账户当前绑定银行账户为：">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Button fx:id="ConfirmButton" layoutX="477.0" layoutY="225.0" mnemonicParsing="false" onAction="#onConfirmButtonClicked" styleClass="btn-primary" stylesheets="@../../../bootstrapfx.css" text="确定">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
