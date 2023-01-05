@@ -40,8 +40,7 @@ public class Test1 {
     }
 
     @Test
-//    public void Test2() {
-//        UserDaoImpl userDao = new UserDaoImpl();
-//        userDao.createUser()
-//    }
+    public void Test2() {
+
+    }
 }
