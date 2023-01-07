@@ -2,16 +2,15 @@ package cn.wenjiachen.bank.test;
 
 import cn.wenjiachen.bank.DAO.BankDao;
 import cn.wenjiachen.bank.DAO.impl.BankDaoImpl;
-import cn.wenjiachen.bank.DAO.impl.ProfileDaoImpl;
-import cn.wenjiachen.bank.DAO.impl.UserDaoImpl;
-import cn.wenjiachen.bank.domain.Profiles;
 import cn.wenjiachen.bank.domain.bank.Bank;
-import cn.wenjiachen.bank.utils.Securities;
 import cn.wenjiachen.bank.utils.Tools;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+
+import static javafx.application.Application.launch;
 
 /**
  * @author Wenjia Chen
@@ -40,7 +39,8 @@ public class Test1 {
     }
 
     @Test
-    public void Test2() {
+    public void Test2() throws IOException {
+
 
     }
 }

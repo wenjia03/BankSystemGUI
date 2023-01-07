@@ -5,17 +5,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="330.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.wenjiachen.bank.controller.view.MainViewController"
->
+<AnchorPane prefHeight="330.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.wenjiachen.bank.controller.view.MainViewController">
    <children>
-      <Label fx:id="UserTitle" layoutX="81.0" layoutY="61.0" text="欢迎您，{UserName}"
-      >
+      <Label fx:id="UserTitle" layoutX="81.0" layoutY="61.0" prefHeight="35.0" prefWidth="335.0" text="欢迎您，{UserName}">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="BalanceButton" layoutX="81.0" layoutY="140.0" mnemonicParsing="false" styleClass="btn-primary" text="账户余额查询" onAction="#onBalanceButtonClicked">
+      <Button fx:id="BalanceButton" layoutX="81.0" layoutY="140.0" mnemonicParsing="false" onAction="#onBalanceButtonClicked" styleClass="btn-primary" text="账户余额查询">
          <font>
             <Font size="19.0" />
          </font>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="259.0" prefWidth="267.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.wenjiachen.bank.controller.view.MFAViewController">
+   <children>
+      <TextField fx:id="password" layoutX="34.0" layoutY="129.0" promptText="请输入密钥">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <Label layoutX="71.0" layoutY="62.0" text="请输入密钥">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="confirmButton" layoutX="99.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#onConfirmButtonClick" text="确定">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

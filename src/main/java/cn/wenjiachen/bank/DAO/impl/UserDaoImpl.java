@@ -138,6 +138,7 @@ public class UserDaoImpl implements UserDao {
         return i > 0;
     }
 
+
     /**
      * @return
      */

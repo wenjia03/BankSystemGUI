@@ -2,7 +2,7 @@ package cn.wenjiachen.bank.controller.view;
 
 import cn.wenjiachen.bank.Application;
 import cn.wenjiachen.bank.domain.User;
-import cn.wenjiachen.bank.service.user.ProfileService;
+import cn.wenjiachen.bank.service.user.UserProfileService;
 import cn.wenjiachen.bank.service.user.UserService;
 import javafx.fxml.FXML;
 
@@ -36,7 +36,7 @@ public class LoginViewController {
         if (user != null && user.isPasswordValid(password.getText())) {
             System.out.println("Login Success");
             Application.LoginedUser = user;
-            Application.StoreProfiles = ProfileService.fetchProfileByUserUUID(user.getUUID()).get(0);
+            Application.StoreProfiles = UserProfileService.fetchProfileByUserUUID(user.getUUID()).get(0);
             // TODO 判断他的权限
 //            Alert alert = new Alert(Alert.AlertType.INFORMATION);
 //            alert.setTitle("Login");

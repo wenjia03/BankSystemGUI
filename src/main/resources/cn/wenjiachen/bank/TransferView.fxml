@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.wenjiachen.bank.controller.view.TransferViewController">
+   <children>
+      <Label alignment="CENTER" layoutY="59.0" prefHeight="18.0" prefWidth="600.0" text="转账" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="TransferPane" layoutX="14.0" layoutY="153.0" prefHeight="212.0" prefWidth="584.0" visible="false">
+         <children>
+            <Label fx:id="accountInfo" layoutX="5.0" layoutY="-6.0" prefHeight="39.0" prefWidth="578.0" text="对方账户信息： 1145 1419 1919 8100 000 测试名 测试银行">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="TransferBalance" layoutX="24.0" layoutY="87.0" prefHeight="42.0" prefWidth="426.0" promptText="转账金额">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextField>
+            <Label fx:id="myInfo" alignment="CENTER" layoutX="5.0" layoutY="38.0" prefHeight="39.0" prefWidth="578.0" text="当前卡余额：12345678901.12">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="confirmButton" layoutX="474.0" layoutY="88.0" mnemonicParsing="false" text="转账">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Label fx:id="TransferTips" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="138.0" prefHeight="31.0" prefWidth="529.0" text="账户余额不足" textAlignment="CENTER" textFill="#cf0f0f">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <TextField fx:id="cardID" layoutX="30.0" layoutY="55.0" prefHeight="42.0" prefWidth="435.0" promptText="输入转账账号">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Button fx:id="searchButton" layoutX="488.0" layoutY="56.0" mnemonicParsing="false" text="查询">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Label fx:id="Tips" alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="110.0" prefHeight="31.0" prefWidth="529.0" text="未查询到该账户" textAlignment="CENTER" textFill="#cf0f0f" visible="false">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

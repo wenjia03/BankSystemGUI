@@ -55,4 +55,11 @@ public class Tools {
     public static Date datetimeToDate(String datetime) throws Exception {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(datetime);
     }
+
+    /**
+     * 生成一个带时间戳的16位数字ID 返回String
+     */
+    public static String generateID() {
+        return new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + (int) (Math.random() * 10000);
+    }
 }
