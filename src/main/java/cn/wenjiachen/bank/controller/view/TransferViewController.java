@@ -60,4 +60,17 @@ public class TransferViewController implements Initializable {
         TransferPane.setVisible(false);
 
     }
+
+    /**
+     * 点击查询按钮
+     */
+    @FXML
+    protected void onSearchButtonClick() {
+        if(cardID.getText().isEmpty()) {
+            Tips.setText("请输入卡号");
+            Tips.setVisible(true);
+        } else {
+//            if()
+        }
+    }
 }

@@ -5,12 +5,14 @@ import cn.wenjiachen.bank.config.SQLConfig;
 import cn.wenjiachen.bank.domain.Trans.Trans;
 import cn.wenjiachen.bank.domain.Trans.enums.TransStatus;
 import cn.wenjiachen.bank.domain.Trans.enums.TransType;
+import cn.wenjiachen.bank.service.BankService;
 import cn.wenjiachen.bank.utils.Tools;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -83,14 +85,14 @@ public class TransDaoImpl implements TransDao<Trans> {
     public Boolean update(Trans trans) throws Exception {
         Connection conn = ds.getConnection();
         String sql = "UPDATE bse_trans SET " +
-                     "TransDate = '"       + Tools.dateToDatetime(trans.getTransDate()) + "'," +
-                     "TransType = "        + trans.TransType.name() + "," +
-                     "TransStatus ="       + trans.TransStatus.name() + "," +
+                     "TransDate = '" + Tools.dateToDatetime(trans.getTransDate()) + "'," +
+                     "TransType = " + trans.TransType.name() + "," +
+                     "TransStatus =" + trans.TransStatus.name() + "," +
                      "TransFromBankID = '" + trans.TransFromBank.getBankID() + "'," +
-                     "TransToBankID = '"   + trans.TransToBank.getBankID() + "'," +
-                     "TransMoney = '"      + trans.TransMoney.toString() + "'," +
-                     "FromID = '"          + trans.FromID + "'," +
-                     "ToID = '"            + trans.ToID + "'";
+                     "TransToBankID = '" + trans.TransToBank.getBankID() + "'," +
+                     "TransMoney = '" + trans.TransMoney.toString() + "'," +
+                     "FromID = '" + trans.FromID + "'," +
+                     "ToID = '" + trans.ToID + "'";
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         return i != 0;
@@ -115,42 +117,91 @@ public class TransDaoImpl implements TransDao<Trans> {
             trans.TransDate = resultSet.getDate("TransDate");
             trans.TransType = TransType.valueOf(resultSet.getString("TransType"));
             trans.TransStatus = TransStatus.valueOf(resultSet.getString("TransStatus"));
-
-
+            trans.TransFromBank = BankService.fetchBankByID(resultSet.getString("TransFromBankID"));
+            trans.TransToBank = BankService.fetchBankByID(resultSet.getString("TransToBankID"));
+            trans.TransMoney = Double.parseDouble(resultSet.getString("TransMoney"));
+            trans.ToID = resultSet.getString("ToID");
+            trans.FromID = resultSet.getString("FromID");
         }
-
+        return trans;
     }
 
     /**
-     * @param cardID
-     * @return
-     * @throws Exception
+     * 依据交易有关银行卡号去查询相关交易
+     *
+     * @param cardID 银行卡号
+     * @return 交易列表
+     * @throws Exception 查询失败时抛出异常
      */
     @Override
     public List<Trans> fetchTransAboutCard(String cardID) throws Exception {
-        return null;
+        Connection connection = ds.getConnection();
+        String sql = "SELECT * FROM bse_trans WHERE " +
+                     "TransFromBankID = '" + cardID + "' OR " +
+                     "TransToBankID = '" + cardID + "'";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        List<Trans> transList = new ArrayList<>();
+        while (resultSet.next()) {
+            Trans trans = new Trans();
+            trans.TransID = resultSet.getString("TransID");
+            trans.TransDate = resultSet.getDate("TransDate");
+            trans.TransType = TransType.valueOf(resultSet.getString("TransType"));
+            trans.TransStatus = TransStatus.valueOf(resultSet.getString("TransStatus"));
+            trans.TransFromBank = BankService.fetchBankByID(resultSet.getString("TransFromBankID"));
+            trans.TransToBank = BankService.fetchBankByID(resultSet.getString("TransToBankID"));
+            trans.TransMoney = Double.parseDouble(resultSet.getString("TransMoney"));
+            trans.ToID = resultSet.getString("ToID");
+            trans.FromID = resultSet.getString("FromID");
+            transList.add(trans);
+        }
+        return transList;
     }
 
     /**
-     * @param cardID
-     * @param type
-     * @return
+     * 限制交易状态的查询
+     *
+     * @param cardID 银行卡号
+     * @param type 交易类型
+     * @return 交易列表
      * @throws Exception
      */
     @Override
     public List<Trans> fetchTransAboutCard(String cardID, TransType type) throws Exception {
-        return null;
+        List<Trans> transList = fetchTransAboutCard(cardID);
+        List<Trans> res = new ArrayList<>();
+        for(Trans i : transList){
+            if(i.TransType == type){
+                res.add(i);
+            }
+        }
+        return res;
     }
 
     /**
-     * @param cardID
-     * @param isFrom
-     * @return
-     * @throws Exception
+     * 查询所有关于此卡的交易 且设置是否只查询转出账户交易
+     *
+     * @param cardID 银行卡号
+     * @param isFrom 是否为转出交易 真只显示转出交易 假显示转入交易
+     * @return 交易列表
+     * @throws Exception 异常
      */
     @Override
     public List<Trans> fetchTransAboutCard(String cardID, Boolean isFrom) throws Exception {
-        return null;
+        List<Trans> list = new ArrayList<>();
+        List<Trans> transList = fetchTransAboutCard(cardID);
+        for(Trans t : transList){
+            if(isFrom){
+                if(t.TransFromBank.getBankID().equals(cardID)){
+                    list.add(t);
+                }
+            }else{
+                if(t.TransToBank.getBankID().equals(cardID)){
+                    list.add(t);
+                }
+            }
+        }
+        return list;
     }
 
     /**

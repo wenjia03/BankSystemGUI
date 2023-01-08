@@ -1,5 +1,6 @@
 package cn.wenjiachen.bank;
 
+import cn.wenjiachen.bank.config.SQLConfig;
 import cn.wenjiachen.bank.controller.view.MainViewController;
 import cn.wenjiachen.bank.domain.Profiles;
 import cn.wenjiachen.bank.domain.User;
@@ -9,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 public class Application extends javafx.application.Application {
 
@@ -23,7 +25,8 @@ public class Application extends javafx.application.Application {
 
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws Exception {
+        Connection connection = SQLConfig.getDataSource().getConnection();
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("LoginView.fxml"));
         LoginView = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");

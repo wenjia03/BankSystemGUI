@@ -40,7 +40,7 @@ public class Test1 {
 
     @Test
     public void Test2() throws IOException {
-
+        System.out.println(new java.util.Date());
 
     }
 }

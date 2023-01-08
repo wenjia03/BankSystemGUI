@@ -115,7 +115,9 @@ public class BankDaoImpl implements BankDao {
     }
 
     /**
-     * @return
+     * 获取所有银行列表
+     *
+     * @return 银行对象列表
      * @throws SQLException
      */
     @Override

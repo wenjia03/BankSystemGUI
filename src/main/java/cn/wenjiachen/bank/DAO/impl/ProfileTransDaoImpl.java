@@ -7,7 +7,7 @@ import cn.wenjiachen.bank.domain.Trans.ProfileTrans;
  * @author Wenjia Chen
  * @date 2023/1/523:10
  */
-public class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
+public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
     /**
      * @param trans
      * @return
