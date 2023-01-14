@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +38,12 @@ public class ProfileDaoImpl implements ProfileDao<Profiles> {
                      "userName,BindingUserUUID"
                      + ")VALUES(" +
                      "'" + profile.getUserName() + "'," +
-                     "'" + profile.getBindingUserUUID() + "'," +
+                     "'" + profile.getUserUUID() + "'," +
                      ")";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Created " + i + " Profile :" + profile.getUserName());
+        connection.close();
         return i;
     }
 
@@ -62,9 +62,10 @@ public class ProfileDaoImpl implements ProfileDao<Profiles> {
         while (resultSet.next()) {
             Profiles profile = new Profiles();
             profile.setUserName(resultSet.getString("userName"));
-            profile.setBindingUserUUID(resultSet.getString("BindingUserUUID"));
+            profile.setUserUUID(resultSet.getString("BindingUserUUID"));
             profiles.add(profile);
         }
+        connection.close();
         return profiles;
     }
 
@@ -83,9 +84,10 @@ public class ProfileDaoImpl implements ProfileDao<Profiles> {
         while (resultSet.next()) {
             Profiles profile = new Profiles();
             profile.setUserName(resultSet.getString("userName"));
-            profile.setBindingUserUUID(resultSet.getString("BindingUserUUID"));
+            profile.setUserUUID(resultSet.getString("BindingUserUUID"));
             profiles.add(profile);
         }
+        connection.close();
         return profiles;
     }
 
@@ -103,9 +105,10 @@ public class ProfileDaoImpl implements ProfileDao<Profiles> {
         while (resultSet.next()) {
             Profiles profile = new Profiles();
             profile.setUserName(resultSet.getString("userName"));
-            profile.setBindingUserUUID(resultSet.getString("BindingUserUUID"));
+            profile.setUserUUID(resultSet.getString("BindingUserUUID"));
             profiles.add(profile);
         }
+        connection.close();
         return profiles;
     }
 
@@ -121,6 +124,7 @@ public class ProfileDaoImpl implements ProfileDao<Profiles> {
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Deleted " + i + " Profile :" + profile.getUserName());
+        connection.close();
         return i > 0;
     }
 
@@ -138,6 +142,7 @@ public class ProfileDaoImpl implements ProfileDao<Profiles> {
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Updated " + i + " Profile :" + profile.getUserName());
+        connection.close();
         return i > 0;
     }
 }

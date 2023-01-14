@@ -36,7 +36,7 @@ public class LoginViewController {
         if (user != null && user.isPasswordValid(password.getText())) {
             System.out.println("Login Success");
             Application.LoginedUser = user;
-            Application.StoreProfiles = UserProfileService.fetchProfileByUserUUID(user.getUUID()).get(0);
+//            Application.StoreProfiles = UserProfileService.fetchProfileByUserUUID(user.getUUID()).get(0);
             // TODO 判断他的权限
 //            Alert alert = new Alert(Alert.AlertType.INFORMATION);
 //            alert.setTitle("Login");

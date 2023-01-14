@@ -1,8 +1,6 @@
 package cn.wenjiachen.bank;
 
 import cn.wenjiachen.bank.config.SQLConfig;
-import cn.wenjiachen.bank.controller.view.MainViewController;
-import cn.wenjiachen.bank.domain.Profiles;
 import cn.wenjiachen.bank.domain.User;
 import cn.wenjiachen.bank.domain.UserProfiles;
 import javafx.fxml.FXMLLoader;
@@ -15,13 +13,16 @@ import java.sql.Connection;
 public class Application extends javafx.application.Application {
 
     public static User LoginedUser = null;
-    public static UserProfiles StoreProfiles = null;
+
+    public static UserProfiles ChoiceUser = null;
 
     public static String userInputMFA = "";
 
     public static String userInputPassword = "";
 
     private static Scene LoginView;
+
+    public static UserProfiles toUpdate;
 
 
     @Override
@@ -39,7 +40,7 @@ public class Application extends javafx.application.Application {
     }
 
     public static void showMainView() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("MainView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("AdminMain.fxml"));
         Scene MainView = new Scene(fxmlLoader.load(), 640, 480);
         Stage stage = (Stage) LoginView.getWindow();
         stage.setTitle("Hello!");
@@ -49,13 +50,76 @@ public class Application extends javafx.application.Application {
 
     public static void showBalanceView() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("BalanceView.fxml"));
-        Scene BalanceView = new Scene(fxmlLoader.load(), 640, 480);
+        Scene BalanceView = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setTitle("Hello!");
         stage.setScene(BalanceView);
         stage.show();
+    }
+
+    public static void showAdminDepositorCreateView(boolean isWait) throws IOException {
+        toUpdate = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("CreateDepositor.fxml"));
+        Scene BalanceView = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Hello!");
+        stage.setScene(BalanceView);
+        if (!isWait)
+            stage.show();
+        else
+            stage.showAndWait();
 
     }
+
+    public static void showAdminDepositorCreateView() throws IOException {
+        showAdminDepositorCreateView(false);
+    }
+
+    public static void showAdminDepositorDeleteView(boolean isWait) throws IOException {
+        toUpdate = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("DeleteDepositorView.fxml"));
+        Scene BalanceView = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Hello!");
+        stage.setScene(BalanceView);
+        if (!isWait)
+            stage.show();
+        else
+            stage.showAndWait();
+
+    }
+
+    public static void showAdminDepositorDeleteView() throws IOException {
+        showAdminDepositorDeleteView(false);
+    }
+
+    public static void changeUserProfiles(UserProfiles userProfiles) throws IOException {
+        toUpdate = userProfiles;
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("CreateDepositor.fxml"));
+        Scene BalanceView = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Hello!");
+        stage.setScene(BalanceView);
+        stage.showAndWait();
+        toUpdate = userProfiles;
+    }
+
+    public static void showAdminDepositorDetailsView(boolean isWait) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("DepositorDetails.fxml"));
+        Scene BalanceView = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Hello!");
+        stage.setScene(BalanceView);
+        if (!isWait)
+            stage.show();
+        else
+            stage.showAndWait();
+    }
+
+    public static void showAdminDepositorDetailsView() throws IOException {
+        showAdminDepositorDetailsView(false);
+    }
+
 
     public static String getUserInputMFA() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("2FAView.fxml"));
@@ -80,4 +144,42 @@ public class Application extends javafx.application.Application {
         userInputPassword = "";
         return t;
     }
+
+    public static UserProfiles choiceUser() throws IOException {
+        ChoiceUser = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("DepositorChoice.fxml"));
+        Scene BalanceView = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Hello!");
+        stage.setScene(BalanceView);
+        stage.showAndWait();
+        return ChoiceUser;
+    }
+
+    public static void showAdminTransDetailsClickView() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("TransDetail.fxml"));
+        Scene BalanceView = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Hello!");
+        stage.setScene(BalanceView);
+        stage.show();
+
+    }
+
+    public static void showAdminCreateTransClickView(boolean isWait) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("CreateTransView.fxml"));
+        Scene BalanceView = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Hello!");
+        stage.setScene(BalanceView);
+        if (!isWait)
+            stage.show();
+        else
+            stage.showAndWait();
+    }
+
+    public static void showAdminCreateTransClickView() throws IOException {
+        showAdminCreateTransClickView(false);
+    }
+
 }

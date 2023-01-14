@@ -28,14 +28,15 @@ public class PermissionDaoImpl implements PermissionDao {
     public Integer createPermissionGroup(String PermissionGroupID, String PermissionGroupName) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "INSERT INTO sec_permission_group (" +
-                     "PermissionGroupID, PermissionGroupName" +
-                     ")VALUES(" +
-                     "'" + PermissionGroupID + "'," +
-                     "'" + PermissionGroupName + "'" +
-                     ")";
+                "PermissionGroupID, PermissionGroupName" +
+                ")VALUES(" +
+                "'" + PermissionGroupID + "'," +
+                "'" + PermissionGroupName + "'" +
+                ")";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Created " + i + " PermissionGroup :" + PermissionGroupID);
+        connection.close();
         return i;
     }
 
@@ -45,15 +46,16 @@ public class PermissionDaoImpl implements PermissionDao {
 
     public Integer createPermissionGroup(String permissionGroupID, String permissionGroupName, String permission) throws SQLException {
         Connection connection = ds.getConnection();
-        String sql = "INSERT INTO sec_permission_group (" +"PermissionGroupID, PermissionGroupName, Permissions" +
-                     ")VALUES(" +
-                     "'" + permissionGroupID + "'," +
-                     "'" + permissionGroupName + "'," +
-                     "'" + permission + "'" +
-                     ")";
+        String sql = "INSERT INTO sec_permission_group (" + "PermissionGroupID, PermissionGroupName, Permissions" +
+                ")VALUES(" +
+                "'" + permissionGroupID + "'," +
+                "'" + permissionGroupName + "'," +
+                "'" + permission + "'" +
+                ")";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Created " + i + " Permission :" + permission);
+        connection.close();
         return i;
     }
 
@@ -66,7 +68,7 @@ public class PermissionDaoImpl implements PermissionDao {
     public List<Permissions> fetchPermissionGroup(String PermissionGroupID) throws Exception {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_permission_group WHERE " +
-                     "PermissionGroupID = '" + PermissionGroupID + "'";
+                "PermissionGroupID = '" + PermissionGroupID + "'";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         List<Permissions> permissionsList = new ArrayList<>();
@@ -77,11 +79,12 @@ public class PermissionDaoImpl implements PermissionDao {
             permissions.setPermissions(resultSet.getString("Permissions"));
             permissionsList.add(permissions);
         }
+        connection.close();
         return permissionsList;
     }
 
     /**
-     * @param PermissionGroupID 
+     * @param PermissionGroupID
      * @return
      * @throws Exception
      */
@@ -89,15 +92,16 @@ public class PermissionDaoImpl implements PermissionDao {
     public boolean deletePermissionGroup(String PermissionGroupID) throws Exception {
         Connection connection = ds.getConnection();
         String sql = "DELETE FROM sec_permission_group WHERE " +
-                     "PermissionGroupID = '" + PermissionGroupID + "'";
+                "PermissionGroupID = '" + PermissionGroupID + "'";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Deleted " + i + " PermissionGroup :" + PermissionGroupID);
+        connection.close();
         return i > 0;
     }
 
     /**
-     * @param permissions 
+     * @param permissions
      * @return
      * @throws Exception
      */
@@ -105,17 +109,18 @@ public class PermissionDaoImpl implements PermissionDao {
     public boolean updatePermissionGroup(Permissions permissions) throws Exception {
         Connection connection = ds.getConnection();
         String sql = "UPDATE sec_permission_group SET " +
-                     "PermissionGroupName = '" + permissions.getPermissionGroupName() + "'," +
-                     "Permissions = '" + permissions.getPermissionsString() + "'" +
-                     "WHERE PermissionGroupID = '" + permissions.getPermissionGroupID() + "'";
+                "PermissionGroupName = '" + permissions.getPermissionGroupName() + "'," +
+                "Permissions = '" + permissions.getPermissionsString() + "'" +
+                "WHERE PermissionGroupID = '" + permissions.getPermissionGroupID() + "'";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Updated " + i + " PermissionGroup :" + permissions.getPermissionGroupID());
+        connection.close();
         return i > 0;
     }
 
     /**
-     * @return 
+     * @return
      * @throws Exception
      */
     @Override
@@ -132,6 +137,7 @@ public class PermissionDaoImpl implements PermissionDao {
             permissions.setPermissions(resultSet.getString("Permissions"));
             permissionsList.add(permissions);
         }
+        connection.close();
         return permissionsList;
     }
 
