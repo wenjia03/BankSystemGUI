@@ -3,6 +3,8 @@ package cn.wenjiachen.bank.service.user;
 import cn.wenjiachen.bank.DAO.impl.UserProfileDaoImpl;
 import cn.wenjiachen.bank.domain.UserProfiles;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ public class UserProfileService {
      * @return 返回是否创建成功
      * @throws Exception
      */
-    public static Integer createProfile(UserProfiles profile) throws Exception {
+    public static Integer createProfile(UserProfiles profile) throws SQLException {
         return dao.createProfile(profile);
     }
 
@@ -38,7 +40,7 @@ public class UserProfileService {
      *
      * @throws Exception 异常
      */
-    public static List<UserProfiles> fetchProfileByUserUUID(String uuid) throws Exception {
+    public static List<UserProfiles> fetchProfileByUserUUID(String uuid) throws SQLException {
         return dao.fetchProfilesByUUID(uuid) ;
     }
 
@@ -48,7 +50,7 @@ public class UserProfileService {
      * @return 返回用户名为name的用户资料列表
      * @throws Exception
      */
-    public static List<UserProfiles> fetchProfilesByName(String name) throws Exception{
+    public static List<UserProfiles> fetchProfilesByName(String name) throws SQLException{
         return dao.fetchProfilesByName(name) ;
     }
 
@@ -58,7 +60,7 @@ public class UserProfileService {
      * @return 返回用户的资料
      * @throws Exception
      */
-    public static List<UserProfiles> fetchProfilesByPhone(String phone) throws Exception {
+    public static List<UserProfiles> fetchProfilesByPhone(String phone) throws SQLException {
         return dao.fetchProfilesByPhone(phone) ;
     }
 
@@ -68,7 +70,7 @@ public class UserProfileService {
      * @return 返回用户的资料
      * @throws Exception
      */
-    public static List<UserProfiles> fetchProfilesByCardID(String cardID) throws Exception {
+    public static List<UserProfiles> fetchProfilesByCardID(String cardID) throws SQLException {
         return dao.fetchProfilesByCardID(cardID) ;
     }
 
@@ -77,7 +79,7 @@ public class UserProfileService {
      * @return 返回所有用户资料列表
      * @throws Exception
      */
-    public static List<UserProfiles> fetchAllProfiles() throws Exception {
+    public static List<UserProfiles> fetchAllProfiles() throws SQLException {
         return dao.fetchAllProfiles() ;
     }
 
@@ -87,8 +89,8 @@ public class UserProfileService {
      * @return 返回删除是否成功
      * @throws Exception
      */
-    public static boolean deleteProfile(UserProfiles profile) throws Exception {
-        List<UserProfiles> profilesList = dao.fetchProfilesByUUID(profile.getBindingUserUUID());
+    public static boolean deleteProfile(UserProfiles profile) throws SQLException {
+        List<UserProfiles> profilesList = dao.fetchProfilesByUUID(profile.getUserUUID());
         if(profilesList.size() == 0) {
             return false ;
         } else {
@@ -102,8 +104,8 @@ public class UserProfileService {
      * @return 返回修改是否成功
      * @throws Exception
      */
-    public static boolean updateProfile(UserProfiles profile) throws Exception {
-        List<UserProfiles> profilesList = dao.fetchProfilesByUUID(profile.BindingUserUUID);
+    public static boolean updateProfile(UserProfiles profile) throws SQLException {
+        List<UserProfiles> profilesList = dao.fetchProfilesByUUID(profile.UserUUID);
         if(profilesList.size() == 0) {
             return false ;
         } else {

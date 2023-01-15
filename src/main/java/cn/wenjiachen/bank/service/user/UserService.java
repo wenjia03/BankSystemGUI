@@ -2,6 +2,7 @@ package cn.wenjiachen.bank.service.user;
 
 import cn.wenjiachen.bank.DAO.impl.UserDaoImpl;
 import cn.wenjiachen.bank.domain.User;
+import cn.wenjiachen.bank.domain.UserException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -30,8 +31,33 @@ public class UserService {
      * @return 返回用户信息
      */
 
-    public static User createUser(String email, String password) throws SQLException {
-        User user = new User(email, password);
+    public static User createUser(String email, String password, String userName) throws SQLException, UserException {
+        if (fetchUserByEmail(email) != null) {
+            throw new UserException("当前用户名用户已存在");
+        }
+        User user = new User(email, password, userName);
+        userDao.createUser(user);
+        return user;
+    }
+
+    public static User createUser(String email, String password, String userName, String userPermission) throws SQLException, UserException {
+        if (fetchUserByEmail(email) != null) {
+            throw new UserException("当前用户名用户已存在");
+        }
+        User user = new User(email, password, userName);
+        user.setPermissionGroupID(userPermission);
+        userDao.createUser(user);
+        return user;
+    }
+
+    public static User createUser(String email, String password, String userName, String userPermission, String MFA) throws SQLException, UserException {
+        if (fetchUserByEmail(email) != null) {
+            throw new UserException("当前用户名用户已存在");
+        }
+        User user = new User(email, password, userName);
+        user.setPermissionGroupID(userPermission);
+        user.setMFA(MFA);
+        user.setMFAEnabled(true);
         userDao.createUser(user);
         return user;
     }
@@ -194,5 +220,17 @@ public class UserService {
         } else {
             return userList.get(0);
         }
+    }
+
+    public static List<User> fetchUserByPermissionGroup(String PGID) throws SQLException {
+        return userDao.fetchUserByPermissionGroupID(PGID);
+    }
+
+    public static Boolean updateUser(User user) throws SQLException {
+        return userDao.changeUserInfo(user);
+    }
+
+    public static List<User> fetchAllUser() throws SQLException {
+        return userDao.fetchAllUsers();
     }
 }

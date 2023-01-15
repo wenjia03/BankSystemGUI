@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
@@ -14,19 +13,16 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="487.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.wenjiachen.bank.controller.view.Admin.TransDetailsController">
+<AnchorPane prefHeight="487.0" prefWidth="1003.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.wenjiachen.bank.controller.view.Admin.UserDetailsController">
     <children>
-        <TableView fx:id="Table" prefHeight="416.0" prefWidth="992.0" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TableView fx:id="Table" prefHeight="433.0" prefWidth="1011.0" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columns>
-                <TableColumn fx:id="TransID" prefWidth="75.0" text="交易流水号" />
-                <TableColumn fx:id="TransDate" prefWidth="165.41545867919922" text="交易日期" />
-                <TableColumn fx:id="TransTypeColumn" prefWidth="133.6614990234375" text="交易类型" />
-                <TableColumn fx:id="TransStatusColumn" prefWidth="133.6614990234375" text="当前交易状态" />
-                <TableColumn fx:id="transBalance" prefWidth="165.41545867919922" text="交易额度" />
-            <TableColumn fx:id="TransNote" prefWidth="165.41545867919922" text="交易备注" />
-                <TableColumn fx:id="FromID" prefWidth="133.6614990234375" text="出账账户" />
-                <TableColumn fx:id="ToID" prefWidth="133.6614990234375" text="入账账户" />
-            <TableColumn fx:id="Teller" prefWidth="133.6614990234375" text="交易员" />
+            <TableColumn fx:id="UUIDColumn" prefWidth="180.18463444709778" text="UUID" />
+                <TableColumn fx:id="LoginNameColumn" minWidth="0.0" prefWidth="122.58462524414062" text="登录名" />
+                <TableColumn fx:id="userNameColumn" prefWidth="121.10772705078125" text="姓名" />
+                <TableColumn fx:id="permissionGroupColumn" prefWidth="323.4461364746094" text="所属权限组" />
+                <TableColumn fx:id="isMFAColumn" minWidth="0.0" prefWidth="121.107666015625" text="是否开启MFA认证" />
+            <TableColumn fx:id="isLockedColumn" prefWidth="80.4923095703125" text="是否锁定" />
             </columns>
             <contextMenu>
                 <ContextMenu>
@@ -38,8 +34,10 @@
         </TableView>
         <ToolBar layoutY="385.0" prefHeight="38.0" prefWidth="992.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <items>
-                <Button fx:id="stopTrans" disable="true" mnemonicParsing="false" onAction="#onStopTransButtonClicked" text="交易止付" />
-            <Button fx:id="returnTrans" disable="true" mnemonicParsing="false" onAction="#onReturnTransButtonClicked" text="交易倒回" />
+                <Button fx:id="createUserButton" mnemonicParsing="false" text=" 创建用户" />
+                <Button fx:id="changeInfoButton" disable="true" mnemonicParsing="false" onAction="#onChangeInfoButtonClicked" text="修改信息" />
+                <Button fx:id="deleteUserButton" disable="true" mnemonicParsing="false" onAction="#onDeleteButtonClicked" text="删除用户" />
+            <Button fx:id="LockUserButton" disable="true" mnemonicParsing="false" onAction="#onLockedUserClick" text="冻结用户" />
                 <TextField fx:id="searchText" prefHeight="23.0" prefWidth="294.0" promptText="键入搜索词" />
                 <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchFilter" text="综合搜索" />
                 <RadioButton mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="72.0" selected="true" text="综合搜索">
@@ -47,10 +45,6 @@
                         <ToggleGroup fx:id="Groups" />
                     </toggleGroup>
                 </RadioButton>
-                <RadioButton fx:id="TransIDRadio" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="流水号" toggleGroup="$Groups" />
-                <RadioButton fx:id="Info" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="交易备注" toggleGroup="$Groups" />
-                <RadioButton fx:id="BankCard" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="相关卡号" toggleGroup="$Groups" />
-            <ChoiceBox fx:id="TypeChoise" prefHeight="24.0" prefWidth="83.0" />
             </items>
         </ToolBar>
         <Label fx:id="infoLabel" layoutY="458.0" prefHeight="16.0" prefWidth="736.0" text="当前查询模式：综合搜索（共 0 条） 当前选择数据：[] " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />

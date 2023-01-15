@@ -2,6 +2,8 @@ package cn.wenjiachen.bank.controller.view.Admin;
 
 import cn.wenjiachen.bank.Application;
 import cn.wenjiachen.bank.DAO.TransException;
+import cn.wenjiachen.bank.controller.Showable;
+import cn.wenjiachen.bank.controller.view.StagePool;
 import cn.wenjiachen.bank.domain.Trans.enums.TransType;
 import cn.wenjiachen.bank.domain.UserProfiles;
 import cn.wenjiachen.bank.service.Trans.TransService;
@@ -11,13 +13,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CreateTransViewController implements Initializable {
+public class CreateTransViewController implements Initializable, Showable {
     @FXML
     private TextField BalanceText;
 
@@ -58,6 +59,8 @@ public class CreateTransViewController implements Initializable {
     private UserProfiles fromUser;
 
     private UserProfiles toUser;
+    private StagePool stagePool;
+    private String stageName;
 
 
     /**
@@ -93,10 +96,13 @@ public class CreateTransViewController implements Initializable {
             alert.showAndWait();
             return;
         }
-        if (!fromUser.checkPassword(Application.getUserInputPassword())) {
-            alert.setContentText("密码错误，请重试");
-            alert.showAndWait();
+        if (!Application.LoginPermissions.HasPermission(new String[]{"HIGH_ALL", "HIGH_TRANS"})) {
+            if (!fromUser.checkPassword(Application.getUserInputPassword())) {
+                alert.setContentText("密码错误，请重试");
+                alert.showAndWait();
+            }
         }
+
         try {
             TransType transType = null;
             if (transferRadio.isSelected()) {
@@ -111,8 +117,7 @@ public class CreateTransViewController implements Initializable {
             successAlert.setHeaderText("转账成功");
             successAlert.setContentText("转账成功");
             successAlert.showAndWait();
-            Stage stage = (Stage) Confirm.getScene().getWindow();
-            stage.close();
+            stagePool.closeStage(stageName);
         } catch (TransException transException) {
             alert.setContentText("当前交易失败：" + transException.getMessage());
             alert.showAndWait();
@@ -153,5 +158,16 @@ public class CreateTransViewController implements Initializable {
             alert.setContentText("程序关键性资源损坏，请联系管理员");
             alert.showAndWait();
         }
+    }
+
+    /**
+     * @param stagePool
+     * @param stageName
+     */
+    @Override
+    public void setStagePool(StagePool stagePool, String stageName) {
+        this.stagePool = stagePool;
+        this.stageName = stageName;
+
     }
 }

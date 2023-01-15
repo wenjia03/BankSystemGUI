@@ -1,5 +1,7 @@
 package cn.wenjiachen.bank.domain;
 
+import cn.wenjiachen.bank.utils.Securities;
+
 /**
  * @author Wenjia Chen
  * @date 2023/1/422:34
@@ -14,6 +16,10 @@ public class Profiles {
 
     // 用户开户行卡号
     public String UserBankCardNumber;
+    public String UserBankCardPassword;
+
+    // 用户开户行卡余额
+    public Double UserBankCardBalance;
 
 
     public Profiles() {
@@ -46,5 +52,34 @@ public class Profiles {
 
     public void setUserBankCardNumber(String userBankCardNumber) {
         UserBankCardNumber = userBankCardNumber;
+    }
+
+    public void setPassword(String password) {
+        UserBankCardPassword = Securities.encryptPassword(password);
+    }
+
+    public void setUserBankCardPassword(String userBankCardPassword) {
+        UserBankCardPassword = userBankCardPassword;
+    }
+
+    public Double getUserBankCardBalance() {
+        return UserBankCardBalance;
+    }
+
+    public void setUserBankCardBalance(Double userBankCardBalance) {
+        UserBankCardBalance = userBankCardBalance;
+    }
+
+    /**
+     * 判断用户输入的密码是否正确
+     *
+     * @param password 密码
+     */
+    public Boolean isPasswordValid(String password) {
+        return Securities.comparePasswords(password, UserBankCardPassword);
+    }
+
+    public Boolean checkPassword(String password) {
+        return Securities.comparePasswords(password, UserBankCardPassword);
     }
 }

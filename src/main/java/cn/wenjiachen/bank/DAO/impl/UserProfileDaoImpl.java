@@ -1,12 +1,12 @@
 package cn.wenjiachen.bank.DAO.impl;
 
-import cn.wenjiachen.bank.DAO.BankDao;
+
 import cn.wenjiachen.bank.DAO.ProfileDao;
 import cn.wenjiachen.bank.config.SQLConfig;
-import cn.wenjiachen.bank.domain.Profiles;
 import cn.wenjiachen.bank.domain.UserProfiles;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,24 +35,25 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      * @throws SQLException
      */
     @Override
-    public Integer createProfile(UserProfiles profile) throws Exception {
+    public Integer createProfile(UserProfiles profile) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "INSERT INTO sec_profile (" +
-                     "userName , userBirthDate,UserBankID,UserBankCardNumber,UserBankCardPassword,UserBankCardBalance,BindingUserUUID,phoneNumber,address"
-                     + ")VALUES(" +
-                     "'" + profile.getUserName() + "'," +
-                     "'" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(profile.getUserBirthDate()) + "'," +
-                     "'" + profile.getUserBank().BankID + "'," +
-                     "'" + profile.getUserBankCardNumber() + "'," +
-                     "'" + profile.getUserBankCardPassword() + "'," +
-                     "'" + profile.getUserBankCardBalance().toString() + "'," +
-                     "'" + profile.getBindingUserUUID() + "'," +
-                     "'" + profile.getPhoneNumber() + "'," +
-                     "'" + profile.getAddress() + "'" +
-                     ")";
+                "userName , userBirthDate,UserBankCardNumber,UserBankCardPassword,UserBankCardBalance,BindingUserUUID,phoneNumber,address,UserIDCard"
+                + ")VALUES(" +
+                "'" + profile.getUserName() + "'," +
+                "'" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(profile.getUserBirthDate()) + "'," +
+                "'" + profile.getUserBankCardNumber() + "'," +
+                "'" + profile.getUserBankCardPassword() + "'," +
+                "'" + profile.getUserBankCardBalance().toString() + "'," +
+                "'" + profile.getUserUUID() + "'," +
+                "'" + profile.getPhoneNumber() + "'," +
+                "'" + profile.getAddress() + "'," +
+                "'" + profile.getUserIDCard() + "'" +
+                ")";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Created " + i + " Profile :" + profile.getUserName());
+        connection.close();
         return i;
     }
 
@@ -64,7 +65,7 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      * @throws SQLException
      */
     @Override
-    public List<UserProfiles> fetchProfilesByName(String name) throws Exception {
+    public List<UserProfiles> fetchProfilesByName(String name) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_profile WHERE userName = '" + name + "'";
         return getProfiles(connection, sql);
@@ -78,30 +79,30 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      * @throws Exception 异常
      */
     @Override
-    public List<UserProfiles> fetchProfilesByUUID(String UUID) throws Exception {
+    public List<UserProfiles> fetchProfilesByUUID(String UUID) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_profile WHERE BindingUserUUID = '" + UUID + "'";
         return getProfiles(connection, sql);
     }
 
-    private List<UserProfiles> getProfiles(Connection connection, String sql) throws Exception {
-        BankDao bankDao = new BankDaoImpl();
+    private List<UserProfiles> getProfiles(Connection connection, String sql) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         List<UserProfiles> profiles = new ArrayList<>();
         while (resultSet.next()) {
             UserProfiles profile = new UserProfiles();
             profile.setUserName(resultSet.getString("userName"));
-            profile.setUserBank(bankDao.fetchBankByBankID(resultSet.getString("UserBankID")).get(0));
             profile.setUserBirthDate(resultSet.getDate("userBirthDate"));
             profile.setUserBankCardNumber(resultSet.getString("UserBankCardNumber"));
             profile.setUserBankCardPassword(resultSet.getString("UserBankCardPassword"));
             profile.setUserBankCardBalance(Double.parseDouble(resultSet.getString("UserBankCardBalance")));
-            profile.setBindingUserUUID(resultSet.getString("BindingUserUUID"));
+            profile.setUserUUID(resultSet.getString("BindingUserUUID"));
             profile.setPhoneNumber(resultSet.getString("phoneNumber"));
             profile.setAddress(resultSet.getString("address"));
+            profile.setUserIDCard(resultSet.getString("UserIDCard"));
             profiles.add(profile);
         }
+        connection.close();
         return profiles;
     }
 
@@ -112,7 +113,7 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      * @return 用户资料
      * @throws SQLException 异常
      */
-    public List<UserProfiles> fetchProfilesByPhone(String phone) throws Exception {
+    public List<UserProfiles> fetchProfilesByPhone(String phone) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_profile WHERE phoneNumber = '" + phone + "'";
         return getProfiles(connection, sql);
@@ -124,8 +125,8 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      * @param cardID 用户银行卡号
      * @return 用户资料
      * @throws SQLException 异常
-      */
-    public List<UserProfiles> fetchProfilesByCardID(String cardID) throws Exception {
+     */
+    public List<UserProfiles> fetchProfilesByCardID(String cardID) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_profile WHERE UserBankCardNumber = '" + cardID + "'";
         return getProfiles(connection, sql);
@@ -138,7 +139,7 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      * @throws SQLException 异常
      */
     @Override
-    public List<UserProfiles> fetchAllProfiles() throws Exception {
+    public List<UserProfiles> fetchAllProfiles() throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_profile";
         return getProfiles(connection, sql);
@@ -154,10 +155,11 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
     @Override
     public boolean deleteProfile(UserProfiles profile) throws SQLException {
         Connection connection = ds.getConnection();
-        String sql = "DELETE FROM sec_profile WHERE BindingUserUUID = '" + profile.getBindingUserUUID() + "'";
+        String sql = "DELETE FROM sec_profile WHERE BindingUserUUID = '" + profile.getUserUUID() + "'";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Deleted " + i + " Profile :" + profile.getUserName());
+        connection.close();
         return i != 0;
     }
 
@@ -173,17 +175,18 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
         Connection connection = ds.getConnection();
         String sql = "UPDATE sec_profile SET " +
                 "userName = '" + profile.getUserName() + "'," +
-                "UserBankID = '" + profile.getUserBank().getBankID() + "'," +
                 "userBirthDate = '" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(profile.getUserBirthDate()) + "'," +
                 "UserBankCardNumber = '" + profile.getUserBankCardNumber() + "'," +
                 "UserBankCardPassword = '" + profile.getUserBankCardPassword() + "'," +
-                "UserBankCardBalance = '" + profile.getUserBankCardBalance().toString()+ "'," +
+                "UserBankCardBalance = '" + profile.getUserBankCardBalance().toString() + "'," +
                 "phoneNumber = '" + profile.getPhoneNumber() + "'," +
-                "address = '" + profile.getAddress() + "'" +
-                "WHERE BindingUserUUID = '" + profile.getBindingUserUUID() + "'";
+                "address = '" + profile.getAddress() + "'," +
+                "UserIDCard = '" + profile.getUserIDCard() + "' " +
+                "WHERE BindingUserUUID = '" + profile.getUserUUID() + "'";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Updated " + i + " Profile :" + profile.getUserName());
+        connection.close();
         return i != 0;
     }
 }

@@ -8,21 +8,19 @@ import cn.wenjiachen.bank.service.user.UserProfileService;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.fxml.Initializable;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class DepositorDetailsController implements Initializable {
 
@@ -94,6 +92,17 @@ public class DepositorDetailsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (!Application.LoginPermissions.HasPermission("HIGH_ALL") && !Application.LoginPermissions.HasPermission("HIGH_USER")) {
+            if (!Application.LoginPermissions.HasPermission("NORMAL_DEPOSITOR_CREATE")) {
+                newProfiles.setDisable(true);
+            }
+            if (!Application.LoginPermissions.HasPermission("NORMAL_DEPOSITOR_UPDATE")) {
+                changeInfoButton.setDisable(true);
+            }
+            if (!Application.LoginPermissions.HasPermission("NORMAL_DEPOSITOR_DELETE")) {
+                deleteUserButton.setDisable(true);
+            }
+        }
         // 设置当前表格的单行选择模式
         Table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         // 获取基本的数据元素

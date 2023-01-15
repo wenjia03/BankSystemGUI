@@ -1,9 +1,10 @@
 package cn.wenjiachen.bank.controller.view.Admin;
 
 import cn.wenjiachen.bank.Application;
+import cn.wenjiachen.bank.controller.Showable;
+import cn.wenjiachen.bank.controller.view.StagePool;
 import cn.wenjiachen.bank.domain.UserProfiles;
 import cn.wenjiachen.bank.service.user.UserProfileService;
-import cn.wenjiachen.bank.service.user.UserService;
 import cn.wenjiachen.bank.utils.Securities;
 import cn.wenjiachen.bank.utils.Tools;
 import javafx.beans.value.ChangeListener;
@@ -11,8 +12,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,7 +20,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class CreateDepositorController implements Initializable {
+public class CreateDepositorController implements Initializable, Showable {
 
     @FXML
     private DatePicker Birthday;
@@ -62,6 +61,8 @@ public class CreateDepositorController implements Initializable {
     // 是否为修改模式
 
     private UserProfiles toUpdateUserProfiles;
+    private StagePool stagePool;
+    private String stageName;
     // 待修改
 
     @FXML
@@ -83,8 +84,7 @@ public class CreateDepositorController implements Initializable {
 
     @FXML
     protected void onCancelClicked() {
-        Stage stage = (Stage) cancel.getScene().getWindow();
-        stage.close();
+        stagePool.closeStage(stageName);
     }
 
     @FXML
@@ -219,5 +219,16 @@ public class CreateDepositorController implements Initializable {
             thisTitle = userName + " - 信息修改";
 
         }
+    }
+
+    /**
+     * @param stagePool
+     * @param stageName
+     */
+    @Override
+    public void setStagePool(StagePool stagePool, String stageName) {
+        this.stagePool = stagePool;
+        this.stageName = stageName;
+
     }
 }

@@ -23,35 +23,40 @@ public class User {
 
     private String permissionGroupID;
 
+    private String userName;
+
     public User() {
         this.UUID = Securities.getUUID();
     }
 
-    public User(String email, String passHash, String MFA, Boolean isMFAEnabled, Boolean isLocked) {
+    public User(String email, String passHash, String MFA, Boolean isMFAEnabled, Boolean isLocked, String userName) {
         this.email = email;
         this.passHash = passHash;
         this.MFA = MFA;
         this.isMFAEnabled = isMFAEnabled;
         this.isLocked = isLocked;
         this.UUID = Securities.getUUID();
+        this.userName = userName;
     }
 
-    public User(Integer id, String email, String passHash, String MFA, Integer isLocked, String UUID) {
+    public User(Integer id, String email, String passHash, String MFA, Integer isLocked, String UUID, String userName) {
         this.email = email;
         this.passHash = passHash;
         this.MFA = MFA;
         this.isMFAEnabled = MFA.length() != 0;
         this.isLocked = isLocked == 1;
         this.UUID = UUID;
+        this.userName = userName;
     }
 
-    public User(String email, String password) {
+    public User(String email, String password, String userName) {
         this.email = email;
         this.passHash = Securities.encryptPassword(password);
         this.MFA = "";
         this.isMFAEnabled = false;
         this.isLocked = false;
         this.UUID = Securities.getUUID();
+        this.userName = userName;
     }
 
     public void setPassword(String password) {
@@ -61,6 +66,7 @@ public class User {
     public Boolean isPasswordValid(String password) {
         return Securities.comparePasswords(password, this.passHash);
     }
+
     public String getEmail() {
         return email;
     }
@@ -74,7 +80,7 @@ public class User {
     }
 
     public Boolean isMFAEnabled() {
-        return isMFAEnabled;
+        return MFA != null && MFA.length() != 0;
     }
 
     public Boolean isLocked() {
@@ -88,13 +94,13 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-               "email='" + email + '\'' +
-               ", passHash='" + passHash + '\'' +
-               ", UUID='" + UUID + '\'' +
-               ", MFA='" + MFA + '\'' +
-               ", isMFAEnabled=" + isMFAEnabled +
-               ", isLocked=" + isLocked +
-               '}';
+                "email='" + email + '\'' +
+                ", passHash='" + passHash + '\'' +
+                ", UUID='" + UUID + '\'' +
+                ", MFA='" + MFA + '\'' +
+                ", isMFAEnabled=" + isMFAEnabled +
+                ", isLocked=" + isLocked +
+                '}';
     }
 
     @Override
@@ -125,6 +131,7 @@ public class User {
     public void setPermissionGroupID(String permissionGroupID) {
         this.permissionGroupID = permissionGroupID;
     }
+
     /**
      * 验证该用户的MFA是否正确
      *
@@ -132,10 +139,18 @@ public class User {
      * @return MFA有效性
      */
     public Boolean MFAValidate(Integer code) {
-        if(!isMFAEnabled || this.MFA.length() == 0) {
+        if (MFA == null || this.MFA.length() == 0) {
             // 用户未开启MFA功能 直接返回false
             return false;
         }
-        return Securities.isCodeValid(this.MFA , code);
+        return Securities.isCodeValid(this.MFA, code);
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

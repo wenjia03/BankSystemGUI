@@ -1,6 +1,8 @@
 package cn.wenjiachen.bank.controller.view.Admin;
 
 import cn.wenjiachen.bank.Application;
+import cn.wenjiachen.bank.controller.Showable;
+import cn.wenjiachen.bank.controller.view.StagePool;
 import cn.wenjiachen.bank.domain.Profiles;
 import cn.wenjiachen.bank.domain.SearchType;
 import cn.wenjiachen.bank.domain.UserProfiles;
@@ -23,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class DepositorChoiceController implements Initializable {
+public class DepositorChoiceController implements Initializable, Showable {
 
     @FXML
     private ToggleGroup Groups;
@@ -87,6 +89,8 @@ public class DepositorChoiceController implements Initializable {
     private ObservableList<UserProfiles> selectedItems;
 
     private List<UserProfiles> userProfilesList;
+    private StagePool stagePool;
+    private String stageName;
 
     /**
      * 初始化 在此处为初始化表格的属性构造器工厂对象
@@ -121,8 +125,7 @@ public class DepositorChoiceController implements Initializable {
     protected void onNewProfilesButtonClicked() throws IOException {
         if (selectedItems.size() > 0) {
             Application.ChoiceUser = selectedItems.get(0);
-            Stage stage = (Stage) infoLabel.getScene().getWindow();
-            stage.close();
+            stagePool.closeStage(stageName);
         } else {
             infoLabel.setText("错误 ： 未选择用户");
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -217,4 +220,14 @@ public class DepositorChoiceController implements Initializable {
     }
 
 
+    /**
+     * @param stagePool
+     * @param stageName
+     */
+    @Override
+    public void setStagePool(StagePool stagePool, String stageName) {
+        this.stagePool = stagePool;
+        this.stageName = stageName;
+
+    }
 }

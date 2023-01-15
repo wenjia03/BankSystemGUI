@@ -20,33 +20,38 @@
                     <items>
                         <MenuItem fx:id="depositorCreate" mnemonicParsing="false" onAction="#onDepositorCreateClicked" text="储户开户" />
                         <MenuItem fx:id="details" mnemonicParsing="false" onAction="#onDepositorDetailsClicked" text="信息管理" />
-                        <MenuItem mnemonicParsing="false" onAction="#onDepositorDeleteClicked" text="储户销户" />
+                        <MenuItem fx:id="DepositiorDelete" mnemonicParsing="false" onAction="#onDepositorDeleteClicked" text="储户销户" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="交易管理">
+                <Menu fx:id="Trans" mnemonicParsing="false" text="交易管理">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#onTransDetailsClicked" text="查询交易" />
-                        <MenuItem mnemonicParsing="false" onAction="#onTransCreateClicked" text="创建交易" />
+                        <MenuItem fx:id="TransFetch" mnemonicParsing="false" onAction="#onTransDetailsClicked" text="查询交易" />
+                        <MenuItem fx:id="TransCreate" mnemonicParsing="false" onAction="#onTransCreateClicked" text="创建交易" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="权限组管理">
+                <Menu fx:id="Permission" mnemonicParsing="false" text="权限组管理">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="查询权限组" />
-                        <MenuItem mnemonicParsing="false" text="创建权限组" />
+                        <MenuItem mnemonicParsing="false" onAction="#onPermissionDetailClicked" text="查询权限组" />
+                        <MenuItem mnemonicParsing="false" onAction="#onCreatePermissionGroupClicked" text="创建权限组" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="存取业务">
+                <Menu fx:id="Bussiness" mnemonicParsing="false" text="存取业务">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="储户存款" />
-                        <MenuItem mnemonicParsing="false" text="储户取款" />
+                        <MenuItem fx:id="Deposite" mnemonicParsing="false" onAction="#onDepositorDepositClicked" text="储户存款" />
+                        <MenuItem fx:id="Withdraw" mnemonicParsing="false" onAction="#onDepositorWithdrawClicked" text="储户取款" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="业务员管理">
+                <Menu fx:id="Admin" mnemonicParsing="false" text="业务员管理">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="创建管理员" />
-                        <MenuItem mnemonicParsing="false" text="管理员管理" />
+                        <MenuItem mnemonicParsing="false" onAction="#onCreateUserClicked" text="创建管理员" />
+                        <MenuItem mnemonicParsing="false" onAction="#onUserDetailClicked" text="管理员管理" />
                     </items>
                 </Menu>
+            <Menu mnemonicParsing="false" text="我">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#onLogoutClicked" text="退出登录" />
+               </items>
+            </Menu>
             </menus>
         </MenuBar>
     </children>

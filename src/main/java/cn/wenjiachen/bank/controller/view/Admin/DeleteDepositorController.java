@@ -3,7 +3,6 @@ package cn.wenjiachen.bank.controller.view.Admin;
 import cn.wenjiachen.bank.Application;
 import cn.wenjiachen.bank.domain.UserProfiles;
 import cn.wenjiachen.bank.service.user.UserProfileService;
-import cn.wenjiachen.bank.utils.Securities;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -37,7 +36,9 @@ public class DeleteDepositorController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userShowText.setText("未选择");
-        // TODO 此处涉及权限 后期补充 此处通过判断权限组，如果有高级权限则无需验证用户密码
+        if (Application.LoginPermissions.HasPermission(new String[]{"HIGH_ALL", "HIGH_DEPOSITOR"})) {
+            warningTitle.setVisible(false);
+        }
     }
 
     @FXML
@@ -77,14 +78,23 @@ public class DeleteDepositorController implements Initializable {
             errorAlert.showAndWait();
             return;
         }
-        String userPassword = Application.getUserInputPassword();
-        if (userPassword == null) {
-            return;
+        if (!Application.LoginPermissions.HasPermission(new String[]{"HIGH_ALL", "HIGH_DEPOSITOR"})) {
+            String userPassword = Application.getUserInputPassword();
+            if (userPassword == null) {
+                return;
+            }
+            if (!toDeleteUser.checkPassword(userPassword)) {
+                errorAlert.setTitle("错误");
+                errorAlert.setHeaderText("错误");
+                errorAlert.setContentText("密码错误。无法确认用户身份，无法完成销户 " + toDeleteUser.UserBankCardPassword);
+                errorAlert.showAndWait();
+                return;
+            }
         }
-        if (!toDeleteUser.checkPassword(userPassword)) {
+        if(!Application.MFAConfirm()){
             errorAlert.setTitle("错误");
-            errorAlert.setHeaderText("错误");
-            errorAlert.setContentText("密码错误。无法确认用户身份，无法完成销户 " + toDeleteUser.UserBankCardPassword);
+            errorAlert.setHeaderText("MFA验证有误");
+            errorAlert.setContentText("MFA验证有误");
             errorAlert.showAndWait();
             return;
         }

@@ -20,7 +20,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class DepositorDepositController implements Initializable {
+public class DepositorWithdrawController implements Initializable {
 
     @FXML
     private Button ChoiseUserButton;
@@ -80,7 +80,18 @@ public class DepositorDepositController implements Initializable {
             errorAlert.showAndWait();
             return;
         }
+        if (!Application.LoginPermissions.HasPermission(new String[]{"HIGH_ALL", "HIGH_TRANS"})) {
+            if (nowProfile.checkPassword(Application.getUserInputPassword())) {
+                errorAlert.setTitle("错误");
+                errorAlert.setHeaderText("密码错误");
+                errorAlert.setContentText("密码错误");
+                errorAlert.showAndWait();
+                return;
+            }
+
+        }
         if(!Application.MFAConfirm()){
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setTitle("错误");
             errorAlert.setHeaderText("MFA验证有误");
             errorAlert.setContentText("MFA验证有误");
@@ -90,16 +101,16 @@ public class DepositorDepositController implements Initializable {
         try {
             Double.parseDouble(transValueText.getText());
             TransService.createTrans(
-                    null, // 存款交易没有出账账户
                     nowProfile.getUserBankCardNumber(),
+                    null, // 取款交易没有入账账户
                     transValueText.getText(),
-                    TransType.DEPOSIT,
+                    TransType.WITHDRAW,
                     Application.LoginedUser,
-                    "向" + nowProfile.getUserBankCardNumber() + "存款  " + transNoteText.getText()
+                    "向" + nowProfile.getUserBankCardNumber() + "取款  " + transNoteText.getText()
             );
             infoAlert.setTitle("成功");
-            infoAlert.setHeaderText("存款成功");
-            infoAlert.setContentText("存款成功");
+            infoAlert.setHeaderText("取款成功");
+            infoAlert.setContentText("取款成功");
             infoAlert.showAndWait();
             transValueText.setText("");
             transNoteText.setText("");
@@ -134,6 +145,7 @@ public class DepositorDepositController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("initialize");
+
         transValueText.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {

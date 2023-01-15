@@ -43,12 +43,21 @@ public class PermissionsImpl implements cn.wenjiachen.bank.domain.Permission.Per
      * @return 是否拥有
      */
     public boolean HasPermission(List<String> permissions) {
-        for(String permission : permissions) {
-            if(HasPermission(permission)) {
+        for (String permission : permissions) {
+            if (HasPermission(permission)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * @param permissions
+     * @return
+     */
+    @Override
+    public boolean HasPermission(String[] permissions) {
+        return HasPermission(Arrays.asList(permissions));
     }
 
     public String getPermissionGroupID() {
@@ -73,6 +82,32 @@ public class PermissionsImpl implements cn.wenjiachen.bank.domain.Permission.Per
 
     public String getPermissionsString() {
         return String.join(",", Permissions);
+    }
+
+    /**
+     * @param permission
+     * @return
+     */
+    @Override
+    public boolean addPermission(String permission) {
+        if (Permissions.contains(permission)) {
+            return false;
+        }
+        Permissions.add(permission);
+        return true;
+    }
+
+    /**
+     * @param permission
+     * @return
+     */
+    @Override
+    public boolean deletePermission(String permission) {
+        if (!Permissions.contains(permission)) {
+            return false;
+        }
+        Permissions.remove(permission);
+        return true;
     }
 
     public void setPermissions(List<String> permissions) {
@@ -115,10 +150,10 @@ public class PermissionsImpl implements cn.wenjiachen.bank.domain.Permission.Per
     @Override
     public String toString() {
         return "PermissionsImpl{" +
-               "PermissionGroupID='" + PermissionGroupID + '\'' +
-               ", PermissionGroupName='" + PermissionGroupName + '\'' +
-               ", Permissions=" + Permissions +
-               '}';
+                "PermissionGroupID='" + PermissionGroupID + '\'' +
+                ", PermissionGroupName='" + PermissionGroupName + '\'' +
+                ", Permissions=" + Permissions +
+                '}';
     }
 }
 

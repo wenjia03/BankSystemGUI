@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
      * @throws Exception
      */
     @Override
-    public Integer create(ProfileTrans trans) throws Exception {
+    public Integer create(ProfileTrans trans) throws SQLException {
         Connection conn = ds.getConnection();
         String sql = "INSERT INTO bse_trans (" +
                 "TransDate , TransID , TransType , TransStatus  , TransMoney ," +
@@ -65,7 +66,7 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
      * @throws Exception
      */
     @Override
-    public Boolean delete(ProfileTrans trans) throws Exception {
+    public Boolean delete(ProfileTrans trans) throws SQLException {
         Connection conn = ds.getConnection();
         String sql = "DELECT FROM bse_trans WHERE TransID = '"
                 + trans.TransID + "'";
@@ -81,7 +82,7 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
      * @throws Exception
      */
     @Override
-    public Boolean update(ProfileTrans trans) throws Exception {
+    public Boolean update(ProfileTrans trans) throws SQLException {
         Connection conn = ds.getConnection();
         String sql = "UPDATE bse_trans SET " +
                 "TransDate = '" + Tools.dateToDatetime(trans.getTransDate()) + "'," +
@@ -102,7 +103,7 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
      * @throws Exception
      */
     @Override
-    public ProfileTrans fetchTransByTransID(String transID) throws Exception {
+    public ProfileTrans fetchTransByTransID(String transID) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM bse_trans WHERE " +
                 "TransID = '" + transID + "'";
@@ -128,7 +129,7 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
      * @return
      * @throws Exception
      */
-    public List<ProfileTrans> fetchTransAboutCard(String cardID) throws Exception {
+    public List<ProfileTrans> fetchTransAboutCard(String cardID) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM bse_trans WHERE " +
                 "FromID = '" + cardID + "' OR " +
@@ -160,7 +161,7 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
      * @throws Exception
      */
     @Override
-    public List<ProfileTrans> fetchTransAboutCard(String cardID, TransType type) throws Exception {
+    public List<ProfileTrans> fetchTransAboutCard(String cardID, TransType type) throws SQLException {
         List<ProfileTrans> transList = fetchTransAboutCard(cardID);
         List<ProfileTrans> res = new ArrayList<>();
         for (ProfileTrans i : transList) {
@@ -178,7 +179,7 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
      * @throws Exception
      */
     @Override
-    public List<ProfileTrans> fetchTransAboutCard(String cardID, Boolean isFrom) throws Exception {
+    public List<ProfileTrans> fetchTransAboutCard(String cardID, Boolean isFrom) throws SQLException {
         List<ProfileTrans> list = new ArrayList<>();
         List<ProfileTrans> transList = fetchTransAboutCard(cardID);
         for (ProfileTrans t : transList) {
@@ -203,7 +204,7 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
      * @throws Exception
      */
     @Override
-    public List<ProfileTrans> fetchTransAboutCard(String cardID, Boolean isFrom, TransType type) throws Exception {
+    public List<ProfileTrans> fetchTransAboutCard(String cardID, Boolean isFrom, TransType type) throws SQLException {
         List<ProfileTrans> l = fetchTransAboutCard(cardID, isFrom);
         List<ProfileTrans> transList = new ArrayList<>();
         for (ProfileTrans t : l) {
@@ -219,7 +220,7 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
      * @throws Exception
      */
     @Override
-    public List<ProfileTrans> fetchAllTrans() throws Exception {
+    public List<ProfileTrans> fetchAllTrans() throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM bse_trans";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -243,7 +244,7 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
     }
 
 
-    private ProfileTrans covert(Trans trans) throws Exception {
+    private ProfileTrans covert(Trans trans) throws SQLException {
         if (trans.getTransID() == null) {
             return null;
         }
@@ -284,7 +285,7 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
     }
 
 
-    private List<ProfileTrans> covert(List<Trans> transList) throws Exception {
+    private List<ProfileTrans> covert(List<Trans> transList) throws SQLException {
         List<ProfileTrans> list = new ArrayList<>();
         for (Trans trans : transList) {
             list.add(covert(trans));

@@ -7,6 +7,9 @@ public enum TransType {
     DEPOSIT,
     WITHDRAW,
     TRANSFER,
-    PAYMENT
-    // 存款、取款、转账、支付
+    PAYMENT,
+    STOP,
+    RETURN,
+    LOCK
+    // 存款、取款、转账、支付、止付、退回
 }

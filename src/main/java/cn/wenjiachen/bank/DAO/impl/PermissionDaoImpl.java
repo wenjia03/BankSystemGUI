@@ -65,7 +65,7 @@ public class PermissionDaoImpl implements PermissionDao {
      * @throws Exception
      */
     @Override
-    public List<Permissions> fetchPermissionGroup(String PermissionGroupID) throws Exception {
+    public List<Permissions> fetchPermissionGroup(String PermissionGroupID) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_permission_group WHERE " +
                 "PermissionGroupID = '" + PermissionGroupID + "'";
@@ -89,7 +89,7 @@ public class PermissionDaoImpl implements PermissionDao {
      * @throws Exception
      */
     @Override
-    public boolean deletePermissionGroup(String PermissionGroupID) throws Exception {
+    public boolean deletePermissionGroup(String PermissionGroupID) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "DELETE FROM sec_permission_group WHERE " +
                 "PermissionGroupID = '" + PermissionGroupID + "'";
@@ -106,7 +106,7 @@ public class PermissionDaoImpl implements PermissionDao {
      * @throws Exception
      */
     @Override
-    public boolean updatePermissionGroup(Permissions permissions) throws Exception {
+    public boolean updatePermissionGroup(Permissions permissions) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "UPDATE sec_permission_group SET " +
                 "PermissionGroupName = '" + permissions.getPermissionGroupName() + "'," +
@@ -124,7 +124,7 @@ public class PermissionDaoImpl implements PermissionDao {
      * @throws Exception
      */
     @Override
-    public List<Permissions> fetchAllPermissions() throws Exception {
+    public List<Permissions> fetchAllPermissions() throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_permission_group";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);

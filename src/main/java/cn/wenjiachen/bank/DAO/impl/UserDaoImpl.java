@@ -32,18 +32,20 @@ public class UserDaoImpl implements UserDao {
     public Integer createUser(User user) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "INSERT INTO sec_user (" +
-                     "UUID, email, passHash , MFA , isLocked , permissionGroupID ) VALUES  " +
-                     "(" +
-                     "'" + user.getUUID() + "'," +
-                     "'" + user.getEmail() + "'," +
-                     "'" + user.getPassHash() + "'," +
-                     "'" + user.getMFA() + "'," +
-                     "" + (user.isLocked() ? "1" : "0") +
-                        ",'" + user.getPermissionGroupID() + "'" +
-                     ")";
+                "UUID, email, passHash , MFA , isLocked , permissionGroupID, userName ) VALUES  " +
+                "(" +
+                "'" + user.getUUID() + "'," +
+                "'" + user.getEmail() + "'," +
+                "'" + user.getPassHash() + "'," +
+                "'" + user.getMFA() + "'," +
+                "" + (user.isLocked() ? "1" : "0") +
+                ",'" + user.getPermissionGroupID() + "'," +
+                "'" + user.getUserName() + "'" +
+                ")";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Created " + i + " User :" + user);
+        connection.close();
         return i;
     }
 
@@ -57,12 +59,13 @@ public class UserDaoImpl implements UserDao {
     public List<User> fetchUser(User user) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_user WHERE " +
-                     "UUID = '" + user.getUUID() + "' OR " +
-                     "email = '" + user.getEmail() + "'";
+                "UUID = '" + user.getUUID() + "' OR " +
+                "email = '" + user.getEmail() + "'";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         System.out.println(resultSet);
         List<User> res = SQLConfig.parseResultSetAll(resultSet, User.class);
+        connection.close();
         System.out.println("Fetched " + res.size() + " User :" + user);
         return res;
     }
@@ -77,14 +80,14 @@ public class UserDaoImpl implements UserDao {
     public List<User> fetchUserByEmail(String emailAddress) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_user WHERE " +
-                     "email = '" + emailAddress + "'";
+                "email = '" + emailAddress + "'";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         List<User> res = SQLConfig.parseResultSetAll(resultSet, User.class);
-        if(res == null || res.size() == 0) {
+        connection.close();
+        if (res == null || res.size() == 0) {
             System.out.println("Fetched 0 User :" + emailAddress);
-        }
-        else
+        } else
             System.out.println("Fetched " + res.size() + " User :" + emailAddress);
         return res;
     }
@@ -97,14 +100,32 @@ public class UserDaoImpl implements UserDao {
     public List<User> fetchUserByUUID(String UUID) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_user WHERE " +
-                     "UUID = '" + UUID + "'";
+                "UUID = '" + UUID + "'";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         List<User> res = SQLConfig.parseResultSetAll(resultSet, User.class);
         System.out.println("Fetched " + res.size() + " User :" + UUID);
+        connection.close();
         return res;
     }
 
+    /**
+     * @param permissionGroupID
+     * @return
+     * @throws SQLException
+     */
+    @Override
+    public List<User> fetchUserByPermissionGroupID(String permissionGroupID) throws SQLException {
+        Connection connection = ds.getConnection();
+        String sql = "SELECT * FROM sec_user WHERE " +
+                "permissionGroupID = '" + permissionGroupID + "'";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        List<User> res = SQLConfig.parseResultSetAll(resultSet, User.class);
+        System.out.println("Fetched " + res.size() + " User :" + permissionGroupID);
+        connection.close();
+        return res;
+    }
 
 
     /**
@@ -115,10 +136,11 @@ public class UserDaoImpl implements UserDao {
     public boolean deleteUser(User user) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "DELETE FROM sec_user WHERE " +
-                     "UUID = '" + user.getUUID() + "'";
+                "UUID = '" + user.getUUID() + "'";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Deleted " + i + " User :" + user);
+        connection.close();
         return i > 0;
     }
 
@@ -131,10 +153,11 @@ public class UserDaoImpl implements UserDao {
     public boolean deleteUserByUUID(String uuid) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "DELETE FROM sec_user WHERE " +
-                     "UUID = '" + uuid + "'";
+                "UUID = '" + uuid + "'";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Deleted " + i + " User :" + uuid);
+        connection.close();
         return i > 0;
     }
 
@@ -150,21 +173,24 @@ public class UserDaoImpl implements UserDao {
         ResultSet resultSet = preparedStatement.executeQuery();
         List<User> res = SQLConfig.parseResultSetAll(resultSet, User.class);
         System.out.println("Fetched " + res.size() + " User ");
+        connection.close();
         return res;
     }
 
     public Boolean changeUserInfo(User user) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "UPDATE sec_user SET " +
-                     "email = '" + user.getEmail() + "'," +
-                     "passHash = '" + user.getPassHash() + "'," +
-                     "MFA = '" + user.getMFA() + "'," +
-                     "isLocked = " + (user.isLocked() ? "1" : "0") + "," +
-                     "permissionGroupID = '" + user.getPermissionGroupID() + "'" +
-                     "WHERE UUID = '" + user.getUUID() + "'";
+                "email = '" + user.getEmail() + "'," +
+                "passHash = '" + user.getPassHash() + "'," +
+                "MFA = '" + user.getMFA() + "'," +
+                "isLocked = " + (user.isLocked() ? "1" : "0") + "," +
+                "permissionGroupID = '" + user.getPermissionGroupID() + "'," +
+                "userName = '" + user.getUserName() + "'" +
+                "WHERE UUID = '" + user.getUUID() + "'";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int i = preparedStatement.executeUpdate();
         System.out.println("Updated " + i + " User :" + user);
+        connection.close();
         return i > 0;
     }
 }
