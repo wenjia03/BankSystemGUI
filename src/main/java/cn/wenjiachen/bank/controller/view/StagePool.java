@@ -101,7 +101,7 @@ public class StagePool {
         stage.setScene(balanceView);
         try {
             // 通过 Loader 获取 FXML 对应的 ViewCtr，并将本 StageController 注入到 ViewCtr 中
-            if (fxmlLoader.getController().getClass().isAssignableFrom(Showable.class)) {
+            if (Showable.class.isAssignableFrom(fxmlLoader.getController().getClass())) {
                 Showable controlledStage = (Showable) fxmlLoader.getController();
                 controlledStage.setStagePool(this, name);
             } else {
