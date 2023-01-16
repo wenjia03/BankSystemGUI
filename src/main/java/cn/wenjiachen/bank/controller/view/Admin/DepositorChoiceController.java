@@ -3,9 +3,9 @@ package cn.wenjiachen.bank.controller.view.Admin;
 import cn.wenjiachen.bank.Application;
 import cn.wenjiachen.bank.controller.Showable;
 import cn.wenjiachen.bank.controller.view.StagePool;
-import cn.wenjiachen.bank.domain.Profiles;
+import cn.wenjiachen.bank.domain.Profile;
 import cn.wenjiachen.bank.domain.SearchType;
-import cn.wenjiachen.bank.domain.UserProfiles;
+import cn.wenjiachen.bank.domain.UserProfile;
 import cn.wenjiachen.bank.service.user.UserProfileService;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -14,10 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,7 +40,7 @@ public class DepositorChoiceController implements Initializable, Showable {
     private RadioButton BankCard;
 
     @FXML
-    private TableView<UserProfiles> Table;
+    private TableView<UserProfile> Table;
 
     @FXML
     private Button changeInfoButton;
@@ -86,9 +83,9 @@ public class DepositorChoiceController implements Initializable, Showable {
 
     @FXML
     private TableColumn<?, ?> userPhone;
-    private ObservableList<UserProfiles> selectedItems;
+    private ObservableList<UserProfile> selectedItems;
 
-    private List<UserProfiles> userProfilesList;
+    private List<UserProfile> userProfilesList;
     private StagePool stagePool;
     private String stageName;
 
@@ -110,9 +107,9 @@ public class DepositorChoiceController implements Initializable, Showable {
         reloading();
 
         selectedItems = Table.getSelectionModel().getSelectedItems();
-        selectedItems.addListener(new ListChangeListener<Profiles>() {
+        selectedItems.addListener(new ListChangeListener<Profile>() {
             @Override
-            public void onChanged(Change<? extends Profiles> change) {
+            public void onChanged(Change<? extends Profile> change) {
                 System.out.println("Selected: " + change.getList().get(0));
                 infoLabel.setText("选择：" + change.getList().get(0).getUserName() + " [" + change.getList().get(0).getUserUUID() + "]");
             }
@@ -144,7 +141,7 @@ public class DepositorChoiceController implements Initializable, Showable {
             @Override
             protected Void call() throws Exception {
                 try {
-                    List<UserProfiles> profilesList = UserProfileService.fetchAllProfiles();
+                    List<UserProfile> profilesList = UserProfileService.fetchAllProfiles();
                     userProfilesList = new ArrayList<>(profilesList);
                     Table.getItems().clear();
                     Table.getItems().addAll(profilesList);
@@ -170,7 +167,7 @@ public class DepositorChoiceController implements Initializable, Showable {
 
     @FXML
     protected void searchFilter() {
-        List<UserProfiles> res = new ArrayList<>();
+        List<UserProfile> res = new ArrayList<>();
         System.out.println(Groups.getSelectedToggle().getProperties().get("id"));
         SearchType searchType = SearchType.ALL;
         String nowMode = "综合选择";
@@ -187,7 +184,7 @@ public class DepositorChoiceController implements Initializable, Showable {
             searchType = SearchType.BANK_CARD;
             nowMode = "银行卡号";
         }
-        for (UserProfiles profiles : userProfilesList) {
+        for (UserProfile profiles : userProfilesList) {
             switch (searchType) {
                 case ID_CARD -> {
                     if (profiles.getUserIDCard().contains(searchText.getText()))
@@ -221,8 +218,6 @@ public class DepositorChoiceController implements Initializable, Showable {
 
 
     /**
-     * @param stagePool
-     * @param stageName
      */
     @Override
     public void setStagePool(StagePool stagePool, String stageName) {

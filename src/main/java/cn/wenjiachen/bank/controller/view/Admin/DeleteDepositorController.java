@@ -1,7 +1,7 @@
 package cn.wenjiachen.bank.controller.view.Admin;
 
 import cn.wenjiachen.bank.Application;
-import cn.wenjiachen.bank.domain.UserProfiles;
+import cn.wenjiachen.bank.domain.UserProfile;
 import cn.wenjiachen.bank.service.user.UserProfileService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,7 +31,7 @@ public class DeleteDepositorController implements Initializable {
     @FXML
     private Label warningTitle;
 
-    private UserProfiles toDeleteUser;
+    private UserProfile toDeleteUser;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

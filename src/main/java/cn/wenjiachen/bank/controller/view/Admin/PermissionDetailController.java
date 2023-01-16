@@ -185,13 +185,13 @@ public class PermissionDetailController implements Initializable {
                     alert1.setHeaderText("成功");
                     alert1.setContentText("用户组 " + profiles.getPermissionGroupName() + " 已被删除");
                     alert1.setTitle("成功");
-                } catch (Exception e) {
-                    e.printStackTrace();
                 } catch (PermissionException e) {
                     Alert alert1 = new Alert(Alert.AlertType.ERROR);
                     alert1.setHeaderText("错误");
                     alert1.setHeaderText("权限组错误");
                     alert1.setContentText("用户组 " + profiles.getPermissionGroupName() + " 删除失败，错误信息：" + e.getMessage());
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });

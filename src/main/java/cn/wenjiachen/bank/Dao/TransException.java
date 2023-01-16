@@ -1,4 +1,4 @@
-package cn.wenjiachen.bank.DAO;
+package cn.wenjiachen.bank.Dao;
 
 /**
  * @author Wenjia Chen

@@ -1,6 +1,6 @@
-package cn.wenjiachen.bank.DAO.impl;
+package cn.wenjiachen.bank.Dao.impl;
 
-import cn.wenjiachen.bank.DAO.TransDao;
+import cn.wenjiachen.bank.Dao.TransDao;
 import cn.wenjiachen.bank.config.SQLConfig;
 import cn.wenjiachen.bank.domain.Trans.Trans;
 import cn.wenjiachen.bank.domain.Trans.enums.TransStatus;
@@ -23,6 +23,11 @@ public class TransDaoImpl implements TransDao<Trans> {
 
     private static DataSource ds;
 
+    /**
+     * 无参构造方法，用于获取数据源
+     *
+     * @throws Exception 异常
+     */
     public TransDaoImpl() throws Exception {
         ds = SQLConfig.getDataSource();
     }
@@ -32,7 +37,7 @@ public class TransDaoImpl implements TransDao<Trans> {
      *
      * @param trans 交易对象
      * @return 是否创建成功
-     * @throws Exception 创建失败时抛出异常
+     * @throws SQLException 创建失败时抛出异常
      */
     @Override
     public Integer create(Trans trans) throws SQLException {

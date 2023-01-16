@@ -1,12 +1,11 @@
-package cn.wenjiachen.bank.DAO.impl;
+package cn.wenjiachen.bank.Dao.impl;
 
 
-import cn.wenjiachen.bank.DAO.ProfileDao;
+import cn.wenjiachen.bank.Dao.ProfileDao;
 import cn.wenjiachen.bank.config.SQLConfig;
-import cn.wenjiachen.bank.domain.UserProfiles;
+import cn.wenjiachen.bank.domain.UserProfile;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,9 +18,14 @@ import java.util.List;
  * @author Wenjia Chen
  * @date 2023/1/422:45
  */
-public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
+public class UserProfileDaoImpl implements ProfileDao<UserProfile> {
     private static DataSource ds;
 
+    /**
+     * 构造方法 初始化数据源
+     *
+     * @throws Exception 异常
+     */
     public UserProfileDaoImpl() throws Exception {
         ds = SQLConfig.getDataSource();
     }
@@ -32,10 +36,10 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      *
      * @param profile 用户资料
      * @return 创建成功的数目
-     * @throws SQLException
+     * @throws SQLException 异常
      */
     @Override
-    public Integer createProfile(UserProfiles profile) throws SQLException {
+    public Integer createProfile(UserProfile profile) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "INSERT INTO sec_profile (" +
                 "userName , userBirthDate,UserBankCardNumber,UserBankCardPassword,UserBankCardBalance,BindingUserUUID,phoneNumber,address,UserIDCard"
@@ -62,10 +66,10 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      *
      * @param name 用户姓名
      * @return 用户资料
-     * @throws SQLException
+     * @throws SQLException 异常
      */
     @Override
-    public List<UserProfiles> fetchProfilesByName(String name) throws SQLException {
+    public List<UserProfile> fetchProfilesByName(String name) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_profile WHERE userName = '" + name + "'";
         return getProfiles(connection, sql);
@@ -76,21 +80,21 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      *
      * @param UUID 用户UUID
      * @return 用户资料
-     * @throws Exception 异常
+     * @throws SQLException 异常
      */
     @Override
-    public List<UserProfiles> fetchProfilesByUUID(String UUID) throws SQLException {
+    public List<UserProfile> fetchProfilesByUUID(String UUID) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_profile WHERE BindingUserUUID = '" + UUID + "'";
         return getProfiles(connection, sql);
     }
 
-    private List<UserProfiles> getProfiles(Connection connection, String sql) throws SQLException {
+    private List<UserProfile> getProfiles(Connection connection, String sql) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
-        List<UserProfiles> profiles = new ArrayList<>();
+        List<UserProfile> profiles = new ArrayList<>();
         while (resultSet.next()) {
-            UserProfiles profile = new UserProfiles();
+            UserProfile profile = new UserProfile();
             profile.setUserName(resultSet.getString("userName"));
             profile.setUserBirthDate(resultSet.getDate("userBirthDate"));
             profile.setUserBankCardNumber(resultSet.getString("UserBankCardNumber"));
@@ -113,7 +117,7 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      * @return 用户资料
      * @throws SQLException 异常
      */
-    public List<UserProfiles> fetchProfilesByPhone(String phone) throws SQLException {
+    public List<UserProfile> fetchProfilesByPhone(String phone) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_profile WHERE phoneNumber = '" + phone + "'";
         return getProfiles(connection, sql);
@@ -126,7 +130,7 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      * @return 用户资料
      * @throws SQLException 异常
      */
-    public List<UserProfiles> fetchProfilesByCardID(String cardID) throws SQLException {
+    public List<UserProfile> fetchProfilesByCardID(String cardID) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_profile WHERE UserBankCardNumber = '" + cardID + "'";
         return getProfiles(connection, sql);
@@ -139,7 +143,7 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      * @throws SQLException 异常
      */
     @Override
-    public List<UserProfiles> fetchAllProfiles() throws SQLException {
+    public List<UserProfile> fetchAllProfiles() throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "SELECT * FROM sec_profile";
         return getProfiles(connection, sql);
@@ -153,7 +157,7 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      * @throws SQLException 异常
      */
     @Override
-    public boolean deleteProfile(UserProfiles profile) throws SQLException {
+    public boolean deleteProfile(UserProfile profile) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "DELETE FROM sec_profile WHERE BindingUserUUID = '" + profile.getUserUUID() + "'";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -171,7 +175,7 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfiles> {
      * @throws SQLException 异常
      */
     @Override
-    public boolean updateProfile(UserProfiles profile) throws SQLException {
+    public boolean updateProfile(UserProfile profile) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "UPDATE sec_profile SET " +
                 "userName = '" + profile.getUserName() + "'," +

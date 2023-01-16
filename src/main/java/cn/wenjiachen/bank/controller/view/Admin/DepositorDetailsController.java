@@ -1,9 +1,9 @@
 package cn.wenjiachen.bank.controller.view.Admin;
 
 import cn.wenjiachen.bank.Application;
-import cn.wenjiachen.bank.domain.Profiles;
+import cn.wenjiachen.bank.domain.Profile;
 import cn.wenjiachen.bank.domain.SearchType;
-import cn.wenjiachen.bank.domain.UserProfiles;
+import cn.wenjiachen.bank.domain.UserProfile;
 import cn.wenjiachen.bank.service.user.UserProfileService;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -40,7 +40,7 @@ public class DepositorDetailsController implements Initializable {
     private RadioButton BankCard;
 
     @FXML
-    private TableView<UserProfiles> Table;
+    private TableView<UserProfile> Table;
 
     @FXML
     private Button changeInfoButton;
@@ -83,9 +83,9 @@ public class DepositorDetailsController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> userPhone;
-    private ObservableList<UserProfiles> selectedItems;
+    private ObservableList<UserProfile> selectedItems;
 
-    private List<UserProfiles> userProfilesList;
+    private List<UserProfile> userProfilesList;
 
     /**
      * 初始化 在此处为初始化表格的属性构造器工厂对象
@@ -116,9 +116,9 @@ public class DepositorDetailsController implements Initializable {
         reloading();
 
         selectedItems = Table.getSelectionModel().getSelectedItems();
-        selectedItems.addListener(new ListChangeListener<Profiles>() {
+        selectedItems.addListener(new ListChangeListener<Profile>() {
             @Override
-            public void onChanged(Change<? extends Profiles> change) {
+            public void onChanged(Change<? extends Profile> change) {
                 if (change.getList().size() == 0) {
                     changeInfoButton.setDisable(true);
                     deleteUserButton.setDisable(true);
@@ -138,7 +138,7 @@ public class DepositorDetailsController implements Initializable {
     @FXML
     protected void onChangeInfoButtonClicked() throws IOException {
         System.out.println("Change Info Button Clicked");
-        UserProfiles profiles = selectedItems.get(0);
+        UserProfile profiles = selectedItems.get(0);
         System.out.println(profiles);
         Application.changeUserProfiles(profiles);
         reloading();
@@ -146,7 +146,7 @@ public class DepositorDetailsController implements Initializable {
 
     @FXML
     protected void onNewProfilesButtonClicked() throws IOException {
-        System.out.println("New Profiles Button Clicked");
+        System.out.println("New Profile Button Clicked");
         Application.showAdminDepositorCreateView(true);
         reloading();
     }
@@ -159,7 +159,7 @@ public class DepositorDetailsController implements Initializable {
             @Override
             protected Void call() throws Exception {
                 try {
-                    List<UserProfiles> profilesList = UserProfileService.fetchAllProfiles();
+                    List<UserProfile> profilesList = UserProfileService.fetchAllProfiles();
                     userProfilesList = new ArrayList<>(profilesList);
                     Table.getItems().clear();
                     Table.getItems().addAll(profilesList);
@@ -185,7 +185,7 @@ public class DepositorDetailsController implements Initializable {
 
     @FXML
     protected void searchFilter() {
-        List<UserProfiles> res = new ArrayList<>();
+        List<UserProfile> res = new ArrayList<>();
         System.out.println(Groups.getSelectedToggle().getProperties().get("id"));
         SearchType searchType = SearchType.ALL;
         String nowMode = "综合选择";
@@ -202,7 +202,7 @@ public class DepositorDetailsController implements Initializable {
             searchType = SearchType.BANK_CARD;
             nowMode = "银行卡号";
         }
-        for (UserProfiles profiles : userProfilesList) {
+        for (UserProfile profiles : userProfilesList) {
             switch (searchType) {
                 case ID_CARD -> {
                     if (profiles.getUserIDCard().contains(searchText.getText()))
@@ -236,7 +236,7 @@ public class DepositorDetailsController implements Initializable {
 
     @FXML
     protected void onDeleteButtonClicked() {
-        UserProfiles profiles = selectedItems.get(0);
+        UserProfile profiles = selectedItems.get(0);
         System.out.println(profiles);
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText("警告");

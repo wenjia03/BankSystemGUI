@@ -1,6 +1,6 @@
-package cn.wenjiachen.bank.DAO.impl;
+package cn.wenjiachen.bank.Dao.impl;
 
-import cn.wenjiachen.bank.DAO.UserDao;
+import cn.wenjiachen.bank.Dao.UserDao;
 import cn.wenjiachen.bank.config.SQLConfig;
 import cn.wenjiachen.bank.domain.User;
 
@@ -12,12 +12,19 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
+ * 用户数据访问层，其为用户提供可直接使用的操作数据库的方法。
+ *
  * @author Wenjia Chen
  * @date 2023/1/220:40
  */
 public class UserDaoImpl implements UserDao {
     private static DataSource ds;
 
+    /**
+     * 构造函数 初始化数据源
+     *
+     * @throws Exception 异常
+     */
     public UserDaoImpl() throws Exception {
         ds = SQLConfig.getDataSource();
     }
@@ -50,10 +57,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
-     * 使用缺省的 User对象去查询用户
+     * 根据用户对象查询用户信息
      *
-     * @param user
-     * @return
+     * @param user 用户名
+     * @return 用户信息列表，一个查询集
+     * @throws SQLException 数据库异常
      */
     @Override
     public List<User> fetchUser(User user) throws SQLException {
@@ -71,10 +79,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
-     * 基于注册emailAddress 去查询对应的用户
+     * 依据登录名查询用户信息
      *
-     * @param emailAddress
-     * @return
+     * @param emailAddress 登录名
+     * @return 用户信息列表，一个查询集
+     * @throws SQLException 数据库异常
      */
     @Override
     public List<User> fetchUserByEmail(String emailAddress) throws SQLException {
@@ -93,8 +102,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
-     * @param UUID
-     * @return
+     * 依据UUID查询用户信息
+     *
+     * @param UUID 用户UUID
+     * @return 用户信息列表，一个查询集
+     * @throws SQLException 数据库异常
      */
     @Override
     public List<User> fetchUserByUUID(String UUID) throws SQLException {
@@ -110,9 +122,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
-     * @param permissionGroupID
-     * @return
-     * @throws SQLException
+     * 依据权限组查询用户信息
+     *
+     * @param permissionGroupID 权限组ID
+     * @return 用户信息列表，一个查询集
+     * @throws SQLException 数据库异常
      */
     @Override
     public List<User> fetchUserByPermissionGroupID(String permissionGroupID) throws SQLException {
@@ -129,8 +143,11 @@ public class UserDaoImpl implements UserDao {
 
 
     /**
-     * @param user
-     * @return
+     * 删除用户
+     *
+     * @param user 用户信息对象
+     * @return 是否删除成功
+     * @throws SQLException 数据库异常
      */
     @Override
     public boolean deleteUser(User user) throws SQLException {
@@ -149,6 +166,7 @@ public class UserDaoImpl implements UserDao {
      *
      * @param uuid UUID
      * @return 是否删除成功
+     * @throws SQLException 数据库异常
      */
     public boolean deleteUserByUUID(String uuid) throws SQLException {
         Connection connection = ds.getConnection();
@@ -163,7 +181,10 @@ public class UserDaoImpl implements UserDao {
 
 
     /**
-     * @return
+     * 更新用户信息
+     *
+     * @return 是否更新成功
+     * @throws SQLException 数据库异常
      */
     @Override
     public List<User> fetchAllUsers() throws SQLException {
@@ -177,6 +198,13 @@ public class UserDaoImpl implements UserDao {
         return res;
     }
 
+    /**
+     * 更新用户信息
+     *
+     * @param user 用户信息对象
+     * @return 是否更新成功
+     * @throws SQLException 数据库异常
+     */
     public Boolean changeUserInfo(User user) throws SQLException {
         Connection connection = ds.getConnection();
         String sql = "UPDATE sec_user SET " +

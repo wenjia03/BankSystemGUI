@@ -1,12 +1,12 @@
-package cn.wenjiachen.bank.DAO.impl;
+package cn.wenjiachen.bank.Dao.impl;
 
-import cn.wenjiachen.bank.DAO.TransDao;
+import cn.wenjiachen.bank.Dao.TransDao;
 import cn.wenjiachen.bank.config.SQLConfig;
 import cn.wenjiachen.bank.domain.Trans.ProfileTrans;
 import cn.wenjiachen.bank.domain.Trans.Trans;
 import cn.wenjiachen.bank.domain.Trans.enums.TransStatus;
 import cn.wenjiachen.bank.domain.Trans.enums.TransType;
-import cn.wenjiachen.bank.domain.UserProfiles;
+import cn.wenjiachen.bank.domain.UserProfile;
 import cn.wenjiachen.bank.service.user.UserProfileService;
 import cn.wenjiachen.bank.service.user.UserService;
 import cn.wenjiachen.bank.utils.Tools;
@@ -26,15 +26,22 @@ import java.util.List;
 public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
     private static DataSource ds;
 
+    /**
+     * 构造函数 获取数据源
+     *
+     * @throws Exception 异常
+     */
     public ProfileTransDaoImpl() throws Exception {
         ds = SQLConfig.getDataSource();
 
     }
 
     /**
-     * @param trans
-     * @return
-     * @throws Exception
+     * 创建交易
+     *
+     * @param trans 交易信息对象
+     * @return 是否创建成功
+     * @throws SQLException 数据库异常
      */
     @Override
     public Integer create(ProfileTrans trans) throws SQLException {
@@ -61,9 +68,12 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
     }
 
     /**
-     * @param trans
-     * @return
-     * @throws Exception
+     * 删除交易信息
+     * <b>经过讨论，该方法在业务中不使用，因为银行管理系统内的交易流水无特殊情况不得删除。</b>
+     *
+     * @param trans 交易信息对象
+     * @return 是否删除成功
+     * @throws SQLException 数据库异常
      */
     @Override
     public Boolean delete(ProfileTrans trans) throws SQLException {
@@ -77,9 +87,11 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
     }
 
     /**
-     * @param trans
-     * @return
-     * @throws Exception
+     * 更新交易，依据交易的UUID
+     *
+     * @param trans 交易信息对象
+     * @return 是否更新成功
+     * @throws SQLException 数据库异常
      */
     @Override
     public Boolean update(ProfileTrans trans) throws SQLException {
@@ -98,9 +110,12 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
     }
 
     /**
-     * @param transID 交易ID
-     * @return
-     * @throws Exception
+     * 依据交易流水查询交易信息对象
+     * 此处断言<b>交易存在唯一流水号，所以不返回结果集</b>
+     *
+     * @param transID 交易流水号
+     * @return 交易信息对象
+     * @throws SQLException 数据库异常
      */
     @Override
     public ProfileTrans fetchTransByTransID(String transID) throws SQLException {
@@ -125,9 +140,11 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
     }
 
     /**
-     * @param cardID 银行卡号
-     * @return
-     * @throws Exception
+     * 依据交易相关卡号查询交易信息对象
+     *
+     * @param cardID 卡号
+     * @return 交易信息对象查询结果集
+     * @throws SQLException 数据库异常
      */
     public List<ProfileTrans> fetchTransAboutCard(String cardID) throws SQLException {
         Connection connection = ds.getConnection();
@@ -155,10 +172,13 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
     }
 
     /**
-     * @param cardID 银行卡号
+     * 依据交易相关卡号查询交易信息对象
+     * 该方法为上一个方法的重载，用于查询指定类型的交易，指定更精细的筛选条件
+     *
+     * @param cardID 卡号
      * @param type   交易类型
-     * @return
-     * @throws Exception
+     * @return 交易信息对象查询结果集
+     * @throws SQLException 数据库异常
      */
     @Override
     public List<ProfileTrans> fetchTransAboutCard(String cardID, TransType type) throws SQLException {
@@ -173,10 +193,13 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
     }
 
     /**
-     * @param cardID 银行卡号
-     * @param isFrom 是否为转出交易 真只显示转出交易 假显示转入交易
-     * @return
-     * @throws Exception
+     * 依据交易相关卡号查询交易信息对象
+     * 该方法为上一个方法的重载，用于查询指定类型的交易，指定更精细的筛选条件
+     *
+     * @param cardID 卡号
+     * @param isFrom 是否为转出方（true为转出方，false为转入方）
+     * @return 交易信息对象查询结果集
+     * @throws SQLException 数据库异常
      */
     @Override
     public List<ProfileTrans> fetchTransAboutCard(String cardID, Boolean isFrom) throws SQLException {
@@ -197,11 +220,14 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
     }
 
     /**
-     * @param cardID 银行卡号
-     * @param isFrom 是否为转出交易 真只显示转出交易 假显示转入交易
+     * 依据交易相关卡号查询交易信息对象
+     * 该方法为上一个方法的重载，用于查询指定类型的交易，指定更精细的筛选条件
+     *
+     * @param cardID 卡号
      * @param type   交易类型
-     * @return
-     * @throws Exception
+     * @param isFrom 是否为转出方（true为转出方，false为转入方）
+     * @return 交易信息对象查询结果集
+     * @throws SQLException 数据库异常
      */
     @Override
     public List<ProfileTrans> fetchTransAboutCard(String cardID, Boolean isFrom, TransType type) throws SQLException {
@@ -216,8 +242,10 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
     }
 
     /**
-     * @return
-     * @throws Exception
+     * 查询所有的交易信息
+     *
+     * @return 交易信息对象查询结果集
+     * @throws SQLException 数据库异常
      */
     @Override
     public List<ProfileTrans> fetchAllTrans() throws SQLException {
@@ -262,24 +290,24 @@ public abstract class ProfileTransDaoImpl implements TransDao<ProfileTrans> {
         t.Teller = UserService.fetchUser(trans.TellerUID);
         if (t.TransType != TransType.DEPOSIT) {
             // 存款类型没有出账账户
-            List<UserProfiles> profilesList = UserProfileService.fetchProfilesByCardID(t.FromID);
-            UserProfiles up;
+            List<UserProfile> profilesList = UserProfileService.fetchProfilesByCardID(t.FromID);
+            UserProfile up;
             if (profilesList.size() == 0)
-                up = new UserProfiles("已注销", t.FromID);
+                up = new UserProfile("已注销", t.FromID);
             else
                 up = profilesList.get(0);
-            t.fromUserProfiles = up;
+            t.fromUserProfile = up;
         }
 
         if (t.TransType != TransType.WITHDRAW) {
             // 取款类型没有入账账户
-            List<UserProfiles> profilesList = UserProfileService.fetchProfilesByCardID(t.ToID);
-            UserProfiles up;
+            List<UserProfile> profilesList = UserProfileService.fetchProfilesByCardID(t.ToID);
+            UserProfile up;
             if (profilesList.size() == 0)
-                up = new UserProfiles("已注销", t.ToID);
+                up = new UserProfile("已注销", t.ToID);
             else
                 up = profilesList.get(0);
-            t.toUserProfiles = up;
+            t.toUserProfile = up;
         }
         return t;
     }

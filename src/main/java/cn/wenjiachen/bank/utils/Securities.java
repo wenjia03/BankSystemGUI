@@ -92,10 +92,22 @@ public class Securities {
         return BCrypt.checkpw(password, hash);
     }
 
+    /**
+     * Int转Bool
+     *
+     * @param i Int
+     * @return boolean
+     */
     public static boolean integerToBool(Integer i) {
         return i == 1;
     }
 
+    /**
+     * Bool 转 Int
+     *
+     * @param b Bool
+     * @return Int
+     */
     public static Integer boolToInteger(boolean b) {
         return b ? 1 : 0;
     }

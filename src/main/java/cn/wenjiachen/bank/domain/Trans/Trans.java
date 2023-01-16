@@ -11,29 +11,50 @@ import java.util.Date;
  * @date 2023/1/223:49
  */
 public class Trans {
-    // 交易日期
+    /**
+     * 交易日期
+     */
     public Date TransDate = null;
 
-    // 交易ID
+    /**
+     * 交易流水号
+     */
     public String TransID = null;
 
-    // 交易类型
+    /**
+     * 交易类型
+     */
     public TransType TransType = null;
 
-    // 交易状态
+    /**
+     * 交易状态
+     */
     public TransStatus TransStatus = null;
 
 
-    // 交易金额
+    /**
+     * 交易金额
+     */
     public Double TransMoney = null;
 
-    // 往来账户
+    /**
+     * 往来账户（出账账户卡号）
+     */
     public String FromID = null;
 
+    /**
+     * 往来账户（入账账户卡号）
+     */
     public String ToID = null;
 
+    /**
+     * 交易员UID
+     */
     public String TellerUID = null;
 
+    /**
+     * 交易备注
+     */
     public String TransInfo = null;
 
 
@@ -67,6 +88,8 @@ public class Trans {
      * @param transMoney  交易金额
      * @param fromID      交易发起账户
      * @param toID        交易接受账户
+     * @param tellerUID   柜员ID
+     * @param transInfo   交易详情备注
      */
     public Trans(Date transDate, cn.wenjiachen.bank.domain.Trans.enums.TransType transType,
                  cn.wenjiachen.bank.domain.Trans.enums.TransStatus transStatus,

@@ -49,8 +49,6 @@ public class CreatePermissionGroupController implements Initializable, Showable 
     private String stageName;
 
     /**
-     * @param url
-     * @param resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -133,8 +131,6 @@ public class CreatePermissionGroupController implements Initializable, Showable 
     }
 
     /**
-     * @param stagePool
-     * @param stageName
      */
     @Override
     public void setStagePool(StagePool stagePool, String stageName) {

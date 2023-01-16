@@ -52,8 +52,12 @@ public class PermissionsImpl implements cn.wenjiachen.bank.domain.Permission.Per
     }
 
     /**
-     * @param permissions
-     * @return
+     * 检查当前权限组是否包含指定权限
+     * 当前方法的判断逻辑为：在组内只要有一个权限包含，即承认存在权限。
+     * 该方法为上一个方法对可变参数的重载，属于对直接字符串数组的支持。
+     *
+     * @param permissions 权限名称组
+     * @return 是否包含
      */
     @Override
     public boolean HasPermission(String[] permissions) {
@@ -85,8 +89,10 @@ public class PermissionsImpl implements cn.wenjiachen.bank.domain.Permission.Per
     }
 
     /**
-     * @param permission
-     * @return
+     * 增加一个权限
+     *
+     * @param permission 权限名称
+     * @return 是否增加成功
      */
     @Override
     public boolean addPermission(String permission) {
@@ -98,8 +104,10 @@ public class PermissionsImpl implements cn.wenjiachen.bank.domain.Permission.Per
     }
 
     /**
-     * @param permission
-     * @return
+     * 删除一个权限
+     *
+     * @param permission 权限名称
+     * @return 是否删除成功
      */
     @Override
     public boolean deletePermission(String permission) {
@@ -118,30 +126,59 @@ public class PermissionsImpl implements cn.wenjiachen.bank.domain.Permission.Per
         Permissions = Arrays.asList(permissions.split(","));
     }
 
+    /**
+     * 构造函数
+     *
+     * @param permissionGroupName 权限组名称
+     * @param permissions         权限列表
+     */
     public PermissionsImpl(String permissionGroupName, List<String> permissions) {
         this.PermissionGroupID = Securities.getUUID();
         PermissionGroupName = permissionGroupName;
         Permissions = permissions;
     }
 
+    /**
+     * 构造函数
+     *
+     * @param permissionGroupName 权限组名称
+     * @param permissions         权限列表，以逗号分隔
+     */
     public PermissionsImpl(String permissionGroupName, String permissions) {
         this.PermissionGroupID = Securities.getUUID();
         PermissionGroupName = permissionGroupName;
         Permissions = Arrays.asList(permissions.split(","));
     }
 
+    /**
+     * 构造函数，用于DAO和Service层的数据传递
+     *
+     * @param permissionGroupID   权限组ID
+     * @param permissionGroupName 权限组名称
+     * @param permissions         权限列表
+     */
     public PermissionsImpl(String permissionGroupID, String permissionGroupName, List<String> permissions) {
         PermissionGroupID = permissionGroupID;
         PermissionGroupName = permissionGroupName;
         Permissions = permissions;
     }
 
+    /**
+     * 构造函数，用于DAO和Service层的数据传递
+     *
+     * @param permissionGroupID   权限组ID
+     * @param permissionGroupName 权限组名称
+     * @param permissions         权限列表，以逗号分隔
+     */
     public PermissionsImpl(String permissionGroupID, String permissionGroupName, String permissions) {
         PermissionGroupID = permissionGroupID;
         PermissionGroupName = permissionGroupName;
         Permissions = Arrays.asList(permissions.split(","));
     }
 
+    /**
+     * 无参构造函数，用于创建新权限业务和DAO层的数据传递
+     */
     public PermissionsImpl() {
         this.PermissionGroupID = Securities.getUUID();
         this.Permissions = new ArrayList<>();

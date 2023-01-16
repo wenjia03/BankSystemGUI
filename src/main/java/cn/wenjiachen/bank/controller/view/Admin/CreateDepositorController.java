@@ -3,7 +3,7 @@ package cn.wenjiachen.bank.controller.view.Admin;
 import cn.wenjiachen.bank.Application;
 import cn.wenjiachen.bank.controller.Showable;
 import cn.wenjiachen.bank.controller.view.StagePool;
-import cn.wenjiachen.bank.domain.UserProfiles;
+import cn.wenjiachen.bank.domain.UserProfile;
 import cn.wenjiachen.bank.service.user.UserProfileService;
 import cn.wenjiachen.bank.utils.Securities;
 import cn.wenjiachen.bank.utils.Tools;
@@ -60,7 +60,7 @@ public class CreateDepositorController implements Initializable, Showable {
     private Boolean isUpdate = false;
     // 是否为修改模式
 
-    private UserProfiles toUpdateUserProfiles;
+    private UserProfile toUpdateUserProfiles;
     private StagePool stagePool;
     private String stageName;
     // 待修改
@@ -103,7 +103,7 @@ public class CreateDepositorController implements Initializable, Showable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("提示");
         try {
-            UserProfiles userProfiles = new UserProfiles(
+            UserProfile userProfiles = new UserProfile(
                     userName.getText(),
                     Date.from(Birthday.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
                     userCardID.getText(),
@@ -186,8 +186,6 @@ public class CreateDepositorController implements Initializable, Showable {
     }
 
     /**
-     * @param url
-     * @param resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -222,8 +220,6 @@ public class CreateDepositorController implements Initializable, Showable {
     }
 
     /**
-     * @param stagePool
-     * @param stageName
      */
     @Override
     public void setStagePool(StagePool stagePool, String stageName) {

@@ -67,8 +67,6 @@ public class CreateUserController implements Initializable, Showable {
     private User toUpdateUser;
 
     /**
-     * @param url
-     * @param resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -261,8 +259,6 @@ public class CreateUserController implements Initializable, Showable {
     }
 
     /**
-     * @param stagePool
-     * @param stageName
      */
     @Override
     public void setStagePool(StagePool stagePool, String stageName) {

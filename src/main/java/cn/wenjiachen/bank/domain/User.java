@@ -59,10 +59,21 @@ public class User {
         this.userName = userName;
     }
 
+    /**
+     * 正常用户设置密码
+     *
+     * @param password 密码明文，<b>会被加密为密文</b>
+     */
     public void setPassword(String password) {
         this.passHash = Securities.encryptPassword(password);
     }
 
+    /**
+     * 验证密码是否正确
+     *
+     * @param password 密码明文
+     * @return 返回是否正确
+     */
     public Boolean isPasswordValid(String password) {
         return Securities.comparePasswords(password, this.passHash);
     }

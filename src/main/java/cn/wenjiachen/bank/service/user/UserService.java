@@ -1,6 +1,6 @@
 package cn.wenjiachen.bank.service.user;
 
-import cn.wenjiachen.bank.DAO.impl.UserDaoImpl;
+import cn.wenjiachen.bank.Dao.impl.UserDaoImpl;
 import cn.wenjiachen.bank.domain.User;
 import cn.wenjiachen.bank.domain.UserException;
 
@@ -12,7 +12,6 @@ import java.util.List;
  * @date 2023/1/317:22
  */
 public class UserService {
-
     private static UserDaoImpl userDao;
 
     static {
@@ -28,7 +27,10 @@ public class UserService {
      *
      * @param email    用户名
      * @param password 密码
+     * @param userName 用户姓名
      * @return 返回用户信息
+     * @throws UserException 用户异常
+     * @throws SQLException  数据库异常
      */
 
     public static User createUser(String email, String password, String userName) throws SQLException, UserException {
@@ -40,6 +42,17 @@ public class UserService {
         return user;
     }
 
+    /**
+     * 创建用户
+     *
+     * @param email          登录名
+     * @param password       密码
+     * @param userName       用户姓名
+     * @param userPermission 用户权限
+     * @return 返回用户信息
+     * @throws SQLException  数据库异常
+     * @throws UserException 用户异常
+     */
     public static User createUser(String email, String password, String userName, String userPermission) throws SQLException, UserException {
         if (fetchUserByEmail(email) != null) {
             throw new UserException("当前用户名用户已存在");
@@ -50,6 +63,18 @@ public class UserService {
         return user;
     }
 
+    /**
+     * 创建用户
+     *
+     * @param email          登录名
+     * @param password       密码
+     * @param userName       用户姓名
+     * @param userPermission 用户权限
+     * @param MFA            MFA Token
+     * @return 返回用户信息
+     * @throws SQLException  数据库异常
+     * @throws UserException 用户异常
+     */
     public static User createUser(String email, String password, String userName, String userPermission, String MFA) throws SQLException, UserException {
         if (fetchUserByEmail(email) != null) {
             throw new UserException("当前用户名用户已存在");
@@ -67,6 +92,7 @@ public class UserService {
      *
      * @param uuid uuid
      * @return 返回是否删除成功
+     * @throws SQLException 数据库异常
      */
 
     public static Boolean deleteUser(String uuid) throws SQLException {
@@ -79,6 +105,7 @@ public class UserService {
      * @param uuid     uuid
      * @param password 密码
      * @return 返回用户信息
+     * @throws SQLException 数据库异常
      */
 
     public static User changePassword(String uuid, String password) throws SQLException {
@@ -99,6 +126,7 @@ public class UserService {
      * @param uuid  uuid
      * @param email 邮箱
      * @return 修改后的用户对象
+     * @throws SQLException 数据库异常
      */
 
     public static User changeEmail(String uuid, String email) throws SQLException {
@@ -119,6 +147,7 @@ public class UserService {
      * @param uuid              uuid
      * @param permissionGroupID 权限组ID
      * @return 修改后的用户对象
+     * @throws SQLException 数据库异常
      */
 
     public static User changePermissionGroup(String uuid, String permissionGroupID) throws SQLException {
@@ -139,6 +168,7 @@ public class UserService {
      * @param uuid uuid
      * @param MFA  MFA
      * @return 新用户对象
+     * @throws SQLException 数据库异常
      */
 
     public static User changeMFA(String uuid, String MFA) throws SQLException {
@@ -165,6 +195,7 @@ public class UserService {
      * @param uuid     uuid
      * @param isLocked 锁定状态
      * @return 新用户对象
+     * @throws SQLException 数据库异常
      */
 
     public static User changeLock(String uuid, Boolean isLocked) throws SQLException {
@@ -222,14 +253,34 @@ public class UserService {
         }
     }
 
+    /**
+     * 依据用户权限组获取用户
+     *
+     * @param PGID 权限组ID
+     * @return 用户列表
+     * @throws SQLException 数据库异常
+     */
     public static List<User> fetchUserByPermissionGroup(String PGID) throws SQLException {
         return userDao.fetchUserByPermissionGroupID(PGID);
     }
 
+    /**
+     * 更新用户
+     *
+     * @param user 用户对象
+     * @return 是否成功
+     * @throws SQLException 数据库异常
+     */
     public static Boolean updateUser(User user) throws SQLException {
         return userDao.changeUserInfo(user);
     }
 
+    /**
+     * 获取所有用户
+     *
+     * @return 用户列表
+     * @throws SQLException 数据库异常
+     */
     public static List<User> fetchAllUser() throws SQLException {
         return userDao.fetchAllUsers();
     }

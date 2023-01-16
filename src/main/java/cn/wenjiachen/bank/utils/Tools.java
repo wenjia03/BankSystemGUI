@@ -10,7 +10,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -75,17 +74,33 @@ public class Tools {
         }
     }
 
+    /**
+     * Date转换为SQL Datetime
+     *
+     * @param date 日期
+     * @return Datetime字符串
+     */
     public static String dateToDatetime(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
     }
 
     // 将yyyy-MM-dd HH:mm:ss格式的字符串转换为Date
+
+    /**
+     * Datetime转Date
+     *
+     * @param datetime Datetime
+     * @return Date
+     * @throws Exception 意外
+     */
     public static Date datetimeToDate(String datetime) throws Exception {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(datetime);
     }
 
     /**
      * 生成一个带时间戳的16位数字ID 返回String
+     *
+     * @return 生成的ID
      */
     public static String generateID() {
         return new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + (int) (Math.random() * 10000);
@@ -93,11 +108,19 @@ public class Tools {
 
     /**
      * 生成一个银行卡号
+     *
+     * @return 银行卡号
      */
     public static String generateCardID() {
         return "6222021145" + (int) (Math.random() * 1000000000);
     }
 
+    /**
+     * 分割银行卡号
+     *
+     * @param cardID 银行卡号
+     * @return 银行卡号（分割后）
+     */
     public static String splitCardID(String cardID) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < cardID.length(); i++) {
@@ -109,6 +132,12 @@ public class Tools {
         return sb.toString();
     }
 
+    /**
+     * 判断是否未身份证号
+     *
+     * @param text 身份证号
+     * @return 是否
+     */
     public static boolean isIDCard(String text) {
         // 验证中华人民共和国公民身份证号码
         // 1. 长度为18位
@@ -139,7 +168,12 @@ public class Tools {
         return true;
     }
 
-    // 验证身份证号中是否能提取合法出生日期
+    /**
+     * 查看该身份证号是否能提取出生日
+     *
+     * @param text 身份证号文本
+     * @return 是否
+     */
     public static boolean isIDCardDate(String text) {
         if (text.length() != 18) {
             return false;
@@ -153,7 +187,12 @@ public class Tools {
         }
     }
 
-    // 提取身份证号中的出生日期 转换为Date
+    /**
+     * 提取身份证号中的出生日期 转换为Date
+     *
+     * @param text 身份证
+     * @return 生日
+     */
     public static Date getIDCardBirthday(String text) {
         String date = text.substring(6, 14);
         try {
@@ -164,11 +203,26 @@ public class Tools {
         }
     }
 
+    /**
+     * Date转LocalDate
+     *
+     * @param date Date
+     * @return LocalDate
+     */
     public static LocalDate dateTime(Date date) {
         return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
 
+    /**
+     * Map得到Value反推Key（第一个结果）
+     *
+     * @param map   Map对象
+     * @param value Value
+     * @param cls   Key的Class
+     * @param <T>   Key的Class
+     * @return Key
+     */
     public static <T> T valueGetKey(Map map, String value, Class<T> cls) {
         Set set = map.keySet();
         for (Object o : set) {
@@ -179,7 +233,12 @@ public class Tools {
         return null;
     }
 
-
+    /**
+     * 将Double转换为中文大写数字
+     *
+     * @param number 数字
+     * @return 中文大写数字字符串
+     */
     public static String toChineseUpper(double number) {
         StringBuilder sb = new StringBuilder();
         boolean negative = false;
@@ -254,6 +313,12 @@ public class Tools {
     }
 
 
+    /**
+     * 生成二维码（Base64）
+     *
+     * @param qrCodeText 二维码文本
+     * @return Base64
+     */
     public static String getQRCodeBase64(String qrCodeText) {
         /*
          * 编码二维码
@@ -299,6 +364,14 @@ public class Tools {
 
     }
 
+    /**
+     * 生成TOTP二维码 String
+     *
+     * @param secret  秘钥
+     * @param account 登录名称
+     * @param issuer  用户名称
+     * @return Base64
+     */
     public static String getTOTPQRCode(String secret, String account, String issuer) {
         /*
          * 生成TOTP二维码
@@ -309,6 +382,14 @@ public class Tools {
         return getQRCodeBase64(qrCodeText);
     }
 
+    /**
+     * 生成TOTP二维码（Image）
+     *
+     * @param secret  秘钥
+     * @param account 登录名
+     * @param issuer  用户名
+     * @return Image 二维码Image对象
+     */
     public static Image getTOTPQRCodeImage(String secret, String account, String issuer) {
         String base64 = getTOTPQRCode(secret, account, issuer);
         Base64.Decoder decoder = Base64.getDecoder();

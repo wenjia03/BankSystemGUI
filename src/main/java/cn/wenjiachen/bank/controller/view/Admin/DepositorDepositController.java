@@ -1,8 +1,8 @@
 package cn.wenjiachen.bank.controller.view.Admin;
 
 import cn.wenjiachen.bank.Application;
-import cn.wenjiachen.bank.DAO.TransException;
-import cn.wenjiachen.bank.domain.Profiles;
+import cn.wenjiachen.bank.Dao.TransException;
+import cn.wenjiachen.bank.domain.Profile;
 import cn.wenjiachen.bank.domain.Trans.enums.TransType;
 import cn.wenjiachen.bank.service.Trans.TransService;
 import cn.wenjiachen.bank.utils.Tools;
@@ -40,7 +40,7 @@ public class DepositorDepositController implements Initializable {
     @FXML
     private TextField userText;
 
-    private Profiles nowProfile = null;
+    private Profile nowProfile = null;
 
     private Alert errorAlert = new Alert(Alert.AlertType.ERROR);
 
@@ -128,8 +128,6 @@ public class DepositorDepositController implements Initializable {
 
 
     /**
-     * @param url
-     * @param resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

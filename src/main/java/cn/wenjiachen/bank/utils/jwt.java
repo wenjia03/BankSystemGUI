@@ -9,7 +9,6 @@ package cn.wenjiachen.bank.utils;
 import com.alibaba.druid.util.StringUtils;
 import io.jsonwebtoken.*;
 
-
 import java.util.Date;
 
 /**
@@ -21,6 +20,15 @@ public class jwt {
     private static final String tokenSignKey = "IE@Ty#H#_7,ZCDrzz,ywMCcIT2d,&6+LZo_j3NYtqT6NEQiUZX!.axMP!o(uulz0XW93G)&l-6UAXKHGy$^AW6F$(Ywo_K^~+N*&pTO5cI4X~EIu)eM-Qb=V^hZ#f9Sv";
     //加密密钥
 
+    /**
+     * 创建一个JWT
+     * <br>
+     * <b>已弃用，为做Web设计的时候遗留产物，已被弃用。</b>
+     *
+     * @param userId   用户ID
+     * @param username 用户名
+     * @return JWT
+     */
     public static String createToken(Long userId, String username) {
         String token = Jwts.builder()
                 .setSubject("AUTH-USER")//主题
@@ -34,6 +42,15 @@ public class jwt {
     }
 
 
+    /**
+     * 从JWT中获取对象
+     * <br>
+     * <b>已弃用，为做Web设计的时候遗留产物，已被弃用。</b>
+     *
+     * @param gt    获取的对象Key
+     * @param token JWT
+     * @return 对象
+     */
     public static Object jwtGet(String gt, String token) {
         try {
             if (StringUtils.isEmpty(token)) return null;

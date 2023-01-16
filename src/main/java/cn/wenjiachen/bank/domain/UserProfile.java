@@ -8,7 +8,7 @@ import java.util.Date;
  * @author Wenjia Chen
  * @date 2023/1/422:34
  */
-public class UserProfiles extends Profiles {
+public class UserProfile extends Profile {
 
 
     // 用户出生日期
@@ -30,16 +30,16 @@ public class UserProfiles extends Profiles {
     public String UserIDCard;
 
 
-    public UserProfiles() {
+    public UserProfile() {
     }
 
-    public UserProfiles(String UserName, String userBankCardNumber) {
+    public UserProfile(String UserName, String userBankCardNumber) {
         super.userName = UserName;
         super.UserUUID = Securities.getUUID();
         UserBankCardNumber = userBankCardNumber;
     }
 
-    public UserProfiles(String userName, Date userBirthDate, String userBankCardNumber, String userBankCardPassword, Double userBankCardBalance, String bindingUserUUID, String phoneNumber, String address, String userIDCard) {
+    public UserProfile(String userName, Date userBirthDate, String userBankCardNumber, String userBankCardPassword, Double userBankCardBalance, String bindingUserUUID, String phoneNumber, String address, String userIDCard) {
         this.userName = userName;
         this.userBirthDate = userBirthDate;
         UserBankCardNumber = userBankCardNumber;

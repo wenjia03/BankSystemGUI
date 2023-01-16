@@ -9,6 +9,8 @@
     <version>1.0-SNAPSHOT</version>
     <name>BankSystemGUI</name>
 
+
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.8.2</junit.version>
@@ -67,22 +69,22 @@
             <version>0.9.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>2.0.22</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba</groupId>-->
+        <!--            <artifactId>fastjson</artifactId>-->
+        <!--            <version>2.0.22</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.google.zxing</groupId>-->
-<!--            <artifactId>javase</artifactId>-->
-<!--            <version>3.0.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.google.zxing</groupId>-->
+        <!--            <artifactId>javase</artifactId>-->
+        <!--            <version>3.0.0</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.google.zxing</groupId>
@@ -94,6 +96,29 @@
 
 
     <build>
+        <resources>
+            <resource>
+                <!-- 设定主资源目录  -->
+                <directory>src/main/java</directory>
+
+                <!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，只处理如下配置中包含的资源类型 -->
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+
+                <!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，不处理如下配置中包含的资源类型（剔除下如下配置中包含的资源类型）-->
+                <excludes>
+                    <exclude>**/*.yaml</exclude>
+                </excludes>
+
+                <!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，指定处理后的资源文件输出目录，默认是${build.outputDirectory}指定的目录-->
+                <!--<targetPath>${build.outputDirectory}</targetPath> -->
+
+                <!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，是否对主资源目录开启资源过滤 -->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -102,6 +127,14 @@
                 <configuration>
                     <source>17</source>
                     <target>17</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.8.3</version>
+                <configuration>
+                    <mainClass>cn.wenjiachen.bank.Application</mainClass>
                 </configuration>
             </plugin>
             <plugin>

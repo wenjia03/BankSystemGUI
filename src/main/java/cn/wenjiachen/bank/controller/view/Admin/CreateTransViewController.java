@@ -1,11 +1,11 @@
 package cn.wenjiachen.bank.controller.view.Admin;
 
 import cn.wenjiachen.bank.Application;
-import cn.wenjiachen.bank.DAO.TransException;
+import cn.wenjiachen.bank.Dao.TransException;
 import cn.wenjiachen.bank.controller.Showable;
 import cn.wenjiachen.bank.controller.view.StagePool;
 import cn.wenjiachen.bank.domain.Trans.enums.TransType;
-import cn.wenjiachen.bank.domain.UserProfiles;
+import cn.wenjiachen.bank.domain.UserProfile;
 import cn.wenjiachen.bank.service.Trans.TransService;
 import cn.wenjiachen.bank.utils.Tools;
 import javafx.beans.value.ChangeListener;
@@ -56,16 +56,14 @@ public class CreateTransViewController implements Initializable, Showable {
     @FXML
     private RadioButton transferRadio;
 
-    private UserProfiles fromUser;
+    private UserProfile fromUser;
 
-    private UserProfiles toUser;
+    private UserProfile toUser;
     private StagePool stagePool;
     private String stageName;
 
 
     /**
-     * @param url
-     * @param resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -161,8 +159,6 @@ public class CreateTransViewController implements Initializable, Showable {
     }
 
     /**
-     * @param stagePool
-     * @param stageName
      */
     @Override
     public void setStagePool(StagePool stagePool, String stageName) {

@@ -6,7 +6,7 @@ import cn.wenjiachen.bank.utils.Securities;
  * @author Wenjia Chen
  * @date 2023/1/422:34
  */
-public class Profiles {
+public class Profile {
 
     // 用户真实姓名
     public String userName;
@@ -22,10 +22,10 @@ public class Profiles {
     public Double UserBankCardBalance;
 
 
-    public Profiles() {
+    public Profile() {
     }
 
-    public Profiles(String userName, String userUUID) {
+    public Profile(String userName, String userUUID) {
         this.userName = userName;
         UserUUID = userUUID;
     }

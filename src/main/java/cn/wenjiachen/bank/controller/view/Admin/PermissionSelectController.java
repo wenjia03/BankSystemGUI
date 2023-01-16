@@ -116,7 +116,7 @@ public class PermissionSelectController implements Initializable, Showable {
 
     @FXML
     protected void onNewProfilesButtonClicked() throws IOException {
-        System.out.println("New Profiles Button Clicked");
+        System.out.println("New Profile Button Clicked");
         Application.showAdminDepositorCreateView(true);
         reloading();
     }
@@ -190,8 +190,6 @@ public class PermissionSelectController implements Initializable, Showable {
     }
 
     /**
-     * @param stagePool
-     * @param stageName
      */
     @Override
     public void setStagePool(StagePool stagePool, String stageName) {

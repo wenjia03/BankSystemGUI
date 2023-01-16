@@ -4,7 +4,7 @@ import cn.wenjiachen.bank.config.SQLConfig;
 import cn.wenjiachen.bank.controller.view.StagePool;
 import cn.wenjiachen.bank.domain.Permission.Permissions;
 import cn.wenjiachen.bank.domain.User;
-import cn.wenjiachen.bank.domain.UserProfiles;
+import cn.wenjiachen.bank.domain.UserProfile;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -15,7 +15,7 @@ public class Application extends javafx.application.Application {
 
     public static User LoginedUser = null;
 
-    public static UserProfiles ChoiceUser = null;
+    public static UserProfile ChoiceUser = null;
 
     public static String userInputMFA = "";
 
@@ -23,7 +23,7 @@ public class Application extends javafx.application.Application {
 
     private static Scene LoginView;
 
-    public static UserProfiles toUpdate;
+    public static UserProfile toUpdate;
 
     public static Permissions selectPermission;
 
@@ -78,7 +78,7 @@ public class Application extends javafx.application.Application {
         showAdminDepositorDeleteView(false);
     }
 
-    public static void changeUserProfiles(UserProfiles userProfiles) throws IOException {
+    public static void changeUserProfiles(UserProfile userProfiles) throws IOException {
         toUpdate = userProfiles;
         stagePool.LoadStage("ChangeUserInfo", "CreateDepositor.fxml", "修改信息");
         stagePool.showAndWait("ChangeUserInfo");
@@ -114,7 +114,7 @@ public class Application extends javafx.application.Application {
         return t;
     }
 
-    public static UserProfiles choiceUser() throws IOException {
+    public static UserProfile choiceUser() throws IOException {
         ChoiceUser = null;
         stagePool.LoadStage("DepositorChoice", "DepositorChoice.fxml", "选择储户");
         stagePool.showAndWait("DepositorChoice");

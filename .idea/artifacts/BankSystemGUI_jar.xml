@@ -1,0 +1,33 @@
+<component name="ArtifactManager">
+  <artifact name="BankSystemGUI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/BankSystemGUI_jar</output-path>
+    <root id="root">
+      <element id="archive" name="BankSystemGUI.jar">
+        <element id="module-output" name="BankSystemGUI" />
+      </element>
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:17.0.1" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
+      <element id="library" level="project" name="Maven: org.mindrot:jbcrypt:0.4" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:17.0.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:win:17.0.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:win:17.0.1" />
+      <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.30" />
+      <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.19.4" />
+      <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.6" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:17.0.1" />
+      <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
+      <element id="library" level="project" name="Maven: com.google.zxing:core:3.3.0" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:17.0.1" />
+      <element id="library" level="project" name="Maven: org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0" />
+      <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.10" />
+      <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.3" />
+      <element id="library" level="project" name="Maven: io.jsonwebtoken:jjwt:0.9.1" />
+      <element id="library" level="project" name="Maven: com.warrenstrange:googleauth:1.1.2" />
+      <element id="library" level="project" name="Maven: com.alibaba:druid:1.2.15" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.6" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:17.0.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:win:17.0.1" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.6" />
+    </root>
+  </artifact>
+</component>
