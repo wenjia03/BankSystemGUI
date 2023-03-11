@@ -129,6 +129,7 @@ public class PermissionDetailController implements Initializable {
             protected Void call() throws Exception {
                 try {
                     List<Permissions> permissionsList = PermissionService.getPermissionsList();
+                    System.out.println(permissionsList);
                     gettedPermissionsList = new ArrayList<>(permissionsList);
                     Table.getItems().clear();
                     Table.getItems().addAll(permissionsList);

@@ -123,7 +123,10 @@ public class PermissionsImpl implements cn.wenjiachen.bank.domain.Permission.Per
     }
 
     public void setPermissions(String permissions) {
-        Permissions = Arrays.asList(permissions.split(","));
+        if (permissions == null || permissions.equals(""))
+            Permissions = new ArrayList<>();
+        else
+            Permissions = Arrays.asList(permissions.split(","));
     }
 
     /**
