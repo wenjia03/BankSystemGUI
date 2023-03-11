@@ -45,7 +45,7 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfile> {
                 "userName , userBirthDate,UserBankCardNumber,UserBankCardPassword,UserBankCardBalance,BindingUserUUID,phoneNumber,address,UserIDCard"
                 + ")VALUES(" +
                 "'" + profile.getUserName() + "'," +
-                "'" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(profile.getUserBirthDate()) + "'," +
+                "" + (profile.userBirthDate != null ? ("'" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(profile.getUserBirthDate())) + "'" : "NULL") + "," +
                 "'" + profile.getUserBankCardNumber() + "'," +
                 "'" + profile.getUserBankCardPassword() + "'," +
                 "'" + profile.getUserBankCardBalance().toString() + "'," +
@@ -179,7 +179,7 @@ public class UserProfileDaoImpl implements ProfileDao<UserProfile> {
         Connection connection = ds.getConnection();
         String sql = "UPDATE sec_profile SET " +
                 "userName = '" + profile.getUserName() + "'," +
-                "userBirthDate = '" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(profile.getUserBirthDate()) + "'," +
+                "userBirthDate = " + (profile.userBirthDate != null ? ("'" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(profile.getUserBirthDate())) + "'" : "NULL") + "," +
                 "UserBankCardNumber = '" + profile.getUserBankCardNumber() + "'," +
                 "UserBankCardPassword = '" + profile.getUserBankCardPassword() + "'," +
                 "UserBankCardBalance = '" + profile.getUserBankCardBalance().toString() + "'," +

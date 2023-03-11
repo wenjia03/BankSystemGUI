@@ -21,11 +21,20 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CreateDepositorController implements Initializable, Showable {
+    @FXML
+    private ToggleGroup AccountType;
 
     @FXML
     private DatePicker Birthday;
+
+    @FXML
+    private Label IDCardLabel;
+
     @FXML
     private TextField address;
+
+    @FXML
+    private Label birthLabel;
 
     @FXML
     private Button cancel;
@@ -37,11 +46,10 @@ public class CreateDepositorController implements Initializable, Showable {
     private Label passwordStatus;
 
     @FXML
-    private Button setPassword;
-
+    private RadioButton personAccount;
 
     @FXML
-    private TextField userIDCardText;
+    private Button setPassword;
 
     @FXML
     private Button submit;
@@ -50,10 +58,16 @@ public class CreateDepositorController implements Initializable, Showable {
     private TextField userCardID;
 
     @FXML
+    private TextField userIDCardText;
+
+    @FXML
     private TextField userName;
 
     @FXML
     private TextField userPhoneNum;
+    @FXML
+    private RadioButton publicAccount;
+
 
     private String password;
 
@@ -90,7 +104,7 @@ public class CreateDepositorController implements Initializable, Showable {
     @FXML
     protected void onUserIDCardTextChanged() {
         // 验证该身份证是否合法
-        if (Tools.isIDCard(userIDCardText.getText())) {
+        if (personAccount.isSelected() && Tools.isIDCard(userIDCardText.getText())) {
             if (Tools.isIDCardDate(userIDCardText.getText())) {
                 Birthday.setValue(Objects.requireNonNull(Tools.getIDCardBirthday(userIDCardText.getText())).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
@@ -105,7 +119,9 @@ public class CreateDepositorController implements Initializable, Showable {
         try {
             UserProfile userProfiles = new UserProfile(
                     userName.getText(),
-                    Date.from(Birthday.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+                    personAccount.isSelected() ?
+                            Date.from(Birthday.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
+                            : null,
                     userCardID.getText(),
                     "",
                     0.00,
@@ -134,7 +150,8 @@ public class CreateDepositorController implements Initializable, Showable {
 
         try {
             toUpdateUserProfiles.setUserName(userName.getText());
-            toUpdateUserProfiles.setUserBirthDate(Date.from(Birthday.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+            if (personAccount.isSelected())
+                toUpdateUserProfiles.setUserBirthDate(Date.from(Birthday.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
             toUpdateUserProfiles.setUserIDCard(userCardID.getText());
             toUpdateUserProfiles.setPhoneNumber(userPhoneNum.getText());
             toUpdateUserProfiles.setAddress(address.getText());
@@ -164,7 +181,7 @@ public class CreateDepositorController implements Initializable, Showable {
             alert.show();
             return;
         }
-        if (!Tools.isIDCard(userIDCardText.getText())) {
+        if (personAccount.isSelected() && !Tools.isIDCard(userIDCardText.getText())) {
             alert.setHeaderText("信息有误");
             alert.setContentText("身份证号码不合法");
             alert.show();
@@ -172,7 +189,7 @@ public class CreateDepositorController implements Initializable, Showable {
         }
 
         if (userName.getText().isEmpty() || userPhoneNum.getText().isEmpty() ||
-                Birthday.getValue() == null || address.getText().isEmpty() || userCardID.getText().isEmpty()) {
+                (personAccount.isSelected() && Birthday.getValue() == null) || address.getText().isEmpty() || userCardID.getText().isEmpty()) {
             alert.setHeaderText("信息有误");
             alert.setContentText("请填写完整信息");
             alert.show();
@@ -186,10 +203,28 @@ public class CreateDepositorController implements Initializable, Showable {
     }
 
     /**
+     *
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // 为CardID 域添加监听器，用于填充生日 优化用户体验
+
+        personAccount.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                if (t1) {
+                    Birthday.setVisible(true);
+                    birthLabel.setVisible(true);
+                    IDCardLabel.setText("储户身份证号：");
+                } else {
+                    Birthday.setVisible(false);
+                    Birthday.setValue(null);
+                    birthLabel.setVisible(false);
+                    IDCardLabel.setText("社会信用代码：");
+                }
+            }
+        });
+
 
         userIDCardText.textProperty().addListener(new ChangeListener<>() {
             @Override
@@ -203,10 +238,12 @@ public class CreateDepositorController implements Initializable, Showable {
         isUpdate = (Application.toUpdate != null);
         // 修改模式启动 从数据缓存中读取数据
         if (isUpdate) {
+
             toUpdateUserProfiles = Application.toUpdate;
             Application.toUpdate = null;
             userName.setText(toUpdateUserProfiles.getUserName());
-            Birthday.setValue(Tools.dateTime(toUpdateUserProfiles.getUserBirthDate()));
+            if (toUpdateUserProfiles.userBirthDate != null)
+                Birthday.setValue(Tools.dateTime(toUpdateUserProfiles.getUserBirthDate()));
             userCardID.setText(toUpdateUserProfiles.getUserBankCardNumber());
             userPhoneNum.setText(toUpdateUserProfiles.getPhoneNumber());
             address.setText(toUpdateUserProfiles.getAddress());
@@ -214,12 +251,28 @@ public class CreateDepositorController implements Initializable, Showable {
             passwordStatus.setText("未修改");
             generateID.setVisible(false);
             userCardID.setDisable(true);
+            if (toUpdateUserProfiles.userBirthDate == null) {
+                publicAccount.setSelected(true);
+                personAccount.setSelected(false);
+                Birthday.setVisible(false);
+                Birthday.setValue(null);
+                birthLabel.setVisible(false);
+                IDCardLabel.setText("社会信用代码：");
+            } else {
+                personAccount.setSelected(true);
+                publicAccount.setSelected(false);
+                IDCardLabel.setText("储户身份证号：");
+
+            }
+            personAccount.setDisable(true);
+            publicAccount.setDisable(true);
             thisTitle = userName + " - 信息修改";
 
         }
     }
 
     /**
+     *
      */
     @Override
     public void setStagePool(StagePool stagePool, String stageName) {

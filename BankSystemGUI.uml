@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>D:/Projects/Git/BankSystemGUI</OriginalElement>
+  <nodes>
+    <node x="-111.0" y="772.0">cn.wenjiachen.bank.Application</node>
+    <node x="1705.3061674008813" y="343.7268722466961">cn.wenjiachen.bank.controller.view.Admin.DepositorDetailsController</node>
+    <node x="55.0" y="1012.0">cn.wenjiachen.bank.Dao.TransDao</node>
+    <node x="216.0" y="1012.0">cn.wenjiachen.bank.domain.Trans.ProfileTrans</node>
+    <node x="-248.5" y="291.0">cn.wenjiachen.bank.domain.User</node>
+    <node x="583.0" y="357.0">cn.wenjiachen.bank.utils.Securities</node>
+    <node x="1725.3061674008813" y="409.7268722466961">cn.wenjiachen.bank.controller.view.LoginViewController</node>
+    <node x="319.75" y="749.5">cn.wenjiachen.bank.Dao.UserDao</node>
+    <node x="-122.0" y="116.0">cn.wenjiachen.bank.domain.UserException</node>
+    <node x="1280.876651982379" y="211.86343612334804">cn.wenjiachen.bank.controller.view.Admin.CreateUserController</node>
+    <node x="1522.3876651982378" y="211.86343612334804">cn.wenjiachen.bank.controller.view.Admin.CreateDepositorController</node>
+    <node x="579.0" y="423.0">cn.wenjiachen.bank.config.SQLConfig</node>
+    <node x="-133.5" y="212.0">cn.wenjiachen.bank.service.PermissionService</node>
+    <node x="1577.887665198238" y="-18.00734214390605">cn.wenjiachen.bank.controller.Showable</node>
+    <node x="1729.3061674008813" y="277.7268722466961">cn.wenjiachen.bank.controller.view.MFAViewController</node>
+    <node x="-299.5" y="357.0">cn.wenjiachen.bank.domain.Trans.enums.TransType</node>
+    <node x="709.8237885462556" y="143.62408223201172">cn.wenjiachen.bank.domain.PermissionException</node>
+    <node x="1520.387665198238" y="80.0">cn.wenjiachen.bank.controller.view.Admin.CreateTransViewController</node>
+    <node x="1788.3597650513952" y="80.0">cn.wenjiachen.bank.controller.view.Admin.CreatePermissionGroupController</node>
+    <node x="314.0" y="116.0">cn.wenjiachen.bank.Dao.impl.ProfileDaoImpl</node>
+    <node x="17.0" y="37.0">cn.wenjiachen.bank.service.Trans.TransService</node>
+    <node x="126.0" y="754.0">cn.wenjiachen.bank.Dao.TransException</node>
+    <node x="-272.0" y="423.0">cn.wenjiachen.bank.domain.SearchType</node>
+    <node x="-243.0" y="555.0">cn.wenjiachen.bank.utils.jwt</node>
+    <node x="124.75" y="1091.0">cn.wenjiachen.bank.Dao.impl.ProfileTransDaoImpl</node>
+    <node x="-112.5" y="624.5">cn.wenjiachen.bank.domain.Permission.Permissions</node>
+    <node x="377.0" y="212.0">cn.wenjiachen.bank.Dao.PermissionDao</node>
+    <node x="-112.5" y="423.0">cn.wenjiachen.bank.domain.Trans.enums.TransStatus</node>
+    <node x="1410.762114537445" y="277.7268722466961">cn.wenjiachen.bank.controller.view.PasswordConfirmController</node>
+    <node x="1985.8502202643176" y="277.7268722466961">cn.wenjiachen.bank.controller.view.AdminMainController</node>
+    <node x="389.75" y="37.0">cn.wenjiachen.bank.domain.UserProfile</node>
+    <node x="362.5" y="291.0">cn.wenjiachen.bank.Dao.impl.PermissionDaoImpl</node>
+    <node x="1404.762114537445" y="343.7268722466961">cn.wenjiachen.bank.controller.view.Admin.DepositorWithdrawController</node>
+    <node x="76.06020558002933" y="464.12922173274603">cn.wenjiachen.bank.utils.Tools</node>
+    <node x="-39.25" y="1091.0">cn.wenjiachen.bank.Dao.impl.TransDaoImpl</node>
+    <node x="620.2232011747432" y="-93.30543318649046">cn.wenjiachen.bank.service.user.UserProfileService</node>
+    <node x="222.75" y="37.0">cn.wenjiachen.bank.Dao.ProfileDao</node>
+    <node x="1985.8502202643176" y="343.7268722466961">cn.wenjiachen.bank.controller.view.Admin.UserDetailsController</node>
+    <node x="1129.2180616740088" y="412.4768722466961">cn.wenjiachen.bank.controller.view.Admin.PermissionDetailController</node>
+    <node x="327.25" y="-42.0">cn.wenjiachen.bank.domain.Profile</node>
+    <node x="1811.3597650513952" y="211.86343612334804">cn.wenjiachen.bank.controller.view.Admin.PermissionSelectController</node>
+    <node x="1262.376651982379" y="80.0">cn.wenjiachen.bank.controller.view.Admin.DepositorChoiceController</node>
+    <node x="113.0" y="116.0">cn.wenjiachen.bank.Dao.impl.UserProfileDaoImpl</node>
+    <node x="-127.0" y="703.5">cn.wenjiachen.bank.domain.Permission.impl.PermissionsImpl</node>
+    <node x="1129.2180616740088" y="277.7268722466961">cn.wenjiachen.bank.controller.view.Admin.TransDetailsController</node>
+    <node x="-137.0" y="555.0">cn.wenjiachen.bank.test.PermissionDaoTest</node>
+    <node x="1130.7180616740088" y="346.4768722466961">cn.wenjiachen.bank.controller.view.Admin.DeleteDepositorController</node>
+    <node x="160.0" y="933.0">cn.wenjiachen.bank.domain.Trans.Trans</node>
+    <node x="-299.0" y="489.0">cn.wenjiachen.bank.controller.view.StagePool</node>
+    <node x="138.5" y="812.0">cn.wenjiachen.bank.service.user.UserService</node>
+    <node x="1411.762114537445" y="409.7268722466961">cn.wenjiachen.bank.controller.view.Admin.DepositorDepositController</node>
+    <node x="305.25" y="828.5">cn.wenjiachen.bank.Dao.impl.UserDaoImpl</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="cn.wenjiachen.bank.controller.view.Admin.CreatePermissionGroupController" target="cn.wenjiachen.bank.controller.Showable" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="1926.8597650513952" y="43.99265785609395" />
+      <point x="1636.387665198238" y="43.99265785609395" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.Dao.impl.UserProfileDaoImpl" target="cn.wenjiachen.bank.Dao.ProfileDao" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="203.5" y="91.5" />
+      <point x="296.25" y="91.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.controller.view.Admin.CreateDepositorController" target="cn.wenjiachen.bank.controller.Showable" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="1636.3876651982378" y="43.99265785609395" />
+      <point x="1636.387665198238" y="43.99265785609395" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.Dao.impl.ProfileDaoImpl" target="cn.wenjiachen.bank.Dao.ProfileDao" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="389.0" y="91.5" />
+      <point x="296.25" y="91.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.Dao.ProfileDao" target="cn.wenjiachen.bank.domain.Profile" relationship="DEPENDENCY">
+      <point x="66.0" y="-14.5" />
+      <point x="-12.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.Dao.impl.PermissionDaoImpl" target="cn.wenjiachen.bank.Dao.PermissionDao" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.controller.view.Admin.DepositorChoiceController" target="cn.wenjiachen.bank.controller.Showable" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="1377.376651982379" y="43.99265785609395" />
+      <point x="1636.387665198238" y="43.99265785609395" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.Dao.impl.ProfileTransDaoImpl" target="cn.wenjiachen.bank.Dao.TransDao" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="218.25" y="1066.5" />
+      <point x="125.5" y="1066.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.domain.UserProfile" target="cn.wenjiachen.bank.domain.Profile" relationship="GENERALIZATION">
+      <point x="-55.0" y="-14.5" />
+      <point x="23.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.controller.view.Admin.CreateTransViewController" target="cn.wenjiachen.bank.controller.Showable" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.controller.view.Admin.PermissionSelectController" target="cn.wenjiachen.bank.controller.Showable" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="1926.8597650513952" y="43.99265785609395" />
+      <point x="1636.387665198238" y="43.99265785609395" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.domain.Permission.impl.PermissionsImpl" target="cn.wenjiachen.bank.domain.Permission.Permissions" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.Dao.impl.TransDaoImpl" target="cn.wenjiachen.bank.Dao.TransDao" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="32.75" y="1066.5" />
+      <point x="125.5" y="1066.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.controller.view.Admin.CreateUserController" target="cn.wenjiachen.bank.controller.Showable" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="1377.376651982379" y="43.99265785609395" />
+      <point x="1636.387665198238" y="43.99265785609395" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.Dao.TransDao" target="cn.wenjiachen.bank.domain.Trans.Trans" relationship="DEPENDENCY">
+      <point x="63.0" y="-14.5" />
+      <point x="-15.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.Dao.impl.UserDaoImpl" target="cn.wenjiachen.bank.Dao.UserDao" relationship="REALIZATION">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="cn.wenjiachen.bank.domain.Trans.ProfileTrans" target="cn.wenjiachen.bank.domain.Trans.Trans" relationship="GENERALIZATION">
+      <point x="-58.0" y="-14.5" />
+      <point x="20.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="分层" zoom="0.8417799752781211" showDependencies="false" x="1457.5337738619678" y="217.43979441997067" />
+  <SelectedNodes>
+    <node>cn.wenjiachen.bank.domain.PermissionException</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -3,13 +3,15 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.wenjiachen.bank.controller.view.Admin.CreateDepositorController">
+<AnchorPane prefHeight="344.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.wenjiachen.bank.controller.view.Admin.CreateDepositorController">
    <children>
-      <Label layoutX="35.0" layoutY="78.0" prefHeight="24.0" prefWidth="103.0" text="储户姓名：">
+      <Label layoutX="35.0" layoutY="78.0" prefHeight="24.0" prefWidth="103.0" text="开户户头：">
          <font>
             <Font size="17.0" />
          </font>
@@ -45,19 +47,30 @@
          </font>
       </Label>
       <Button fx:id="generateID" layoutX="634.0" layoutY="78.0" mnemonicParsing="false" onAction="#onGenerateIDClicked" text="生成卡号" />
-      <Button fx:id="submit" layoutX="283.0" layoutY="246.0" mnemonicParsing="false" onAction="#onSubmitClicked" prefHeight="23.0" prefWidth="57.0" text="提交" />
-      <Button fx:id="cancel" layoutX="391.0" layoutY="246.0" mnemonicParsing="false" onAction="#onCancelClicked" prefHeight="23.0" prefWidth="64.0" text="取消" />
-      <Label layoutX="359.0" layoutY="201.0" prefHeight="24.0" prefWidth="103.0" text="储户出生日：">
+      <Button fx:id="submit" layoutX="275.0" layoutY="288.0" mnemonicParsing="false" onAction="#onSubmitClicked" prefHeight="23.0" prefWidth="57.0" text="提交" />
+      <Button fx:id="cancel" layoutX="383.0" layoutY="288.0" mnemonicParsing="false" onAction="#onCancelClicked" prefHeight="23.0" prefWidth="64.0" text="取消" />
+      <Label fx:id="birthLabel" layoutX="359.0" layoutY="201.0" prefHeight="24.0" prefWidth="103.0" text="储户出生日：">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
       <DatePicker fx:id="Birthday" layoutX="468.0" layoutY="201.0" prefHeight="24.0" prefWidth="210.0" />
-      <Label layoutX="359.0" layoutY="121.0" prefHeight="24.0" prefWidth="131.0" text="储户身份证号：">
+      <Label fx:id="IDCardLabel" layoutX="359.0" layoutY="121.0" prefHeight="24.0" prefWidth="131.0" text="储户身份证号：">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
       <TextField fx:id="userIDCardText" layoutX="474.0" layoutY="121.0" onInputMethodTextChanged="#onUserIDCardTextChanged" prefHeight="24.0" prefWidth="210.0" />
+      <Label fx:id="accountTypeLabel" layoutX="35.0" layoutY="246.0" prefHeight="24.0" prefWidth="103.0" text="账户类型：">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="personAccount" layoutX="151.0" layoutY="250.0" mnemonicParsing="false" selected="true" text="个人账户">
+         <toggleGroup>
+            <ToggleGroup fx:id="AccountType" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="publicAccount" layoutX="246.0" layoutY="250.0" mnemonicParsing="false" text="对公账户" toggleGroup="$AccountType" />
    </children>
 </AnchorPane>

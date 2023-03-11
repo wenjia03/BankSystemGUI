@@ -5,6 +5,8 @@ import cn.wenjiachen.bank.domain.Profile;
 import cn.wenjiachen.bank.domain.SearchType;
 import cn.wenjiachen.bank.domain.UserProfile;
 import cn.wenjiachen.bank.service.user.UserProfileService;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -15,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +26,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class DepositorDetailsController implements Initializable {
-
+    @FXML
+    public TableColumn<UserProfile, String> userTypeColumn;
     @FXML
     private ToggleGroup Groups;
 
@@ -94,13 +98,13 @@ public class DepositorDetailsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (!Application.LoginPermissions.HasPermission("HIGH_ALL") && !Application.LoginPermissions.HasPermission("HIGH_USER")) {
             if (!Application.LoginPermissions.HasPermission("NORMAL_DEPOSITOR_CREATE")) {
-                newProfiles.setDisable(true);
+                newProfiles.setVisible(false);
             }
             if (!Application.LoginPermissions.HasPermission("NORMAL_DEPOSITOR_UPDATE")) {
-                changeInfoButton.setDisable(true);
+                changeInfoButton.setVisible(false);
             }
             if (!Application.LoginPermissions.HasPermission("NORMAL_DEPOSITOR_DELETE")) {
-                deleteUserButton.setDisable(true);
+                deleteUserButton.setVisible(false);
             }
         }
         // 设置当前表格的单行选择模式
@@ -113,6 +117,12 @@ public class DepositorDetailsController implements Initializable {
         userPhone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         userIDCard.setCellValueFactory(new PropertyValueFactory<>("UserIDCard"));
         userBalance.setCellValueFactory(new PropertyValueFactory<>("UserBankCardBalance"));
+        userTypeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<UserProfile, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<UserProfile, String> userProfileStringCellDataFeatures) {
+                return new ReadOnlyStringWrapper(userProfileStringCellDataFeatures.getValue().userBirthDate != null ? "个人账户" : "企业对公账户");
+            }
+        });
         reloading();
 
         selectedItems = Table.getSelectionModel().getSelectedItems();

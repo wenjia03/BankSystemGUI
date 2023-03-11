@@ -110,6 +110,7 @@ public class DepositorChoiceController implements Initializable, Showable {
         selectedItems.addListener(new ListChangeListener<Profile>() {
             @Override
             public void onChanged(Change<? extends Profile> change) {
+                //todo 修复
                 System.out.println("Selected: " + change.getList().get(0));
                 infoLabel.setText("选择：" + change.getList().get(0).getUserName() + " [" + change.getList().get(0).getUserUUID() + "]");
             }
@@ -218,6 +219,7 @@ public class DepositorChoiceController implements Initializable, Showable {
 
 
     /**
+     *
      */
     @Override
     public void setStagePool(StagePool stagePool, String stageName) {

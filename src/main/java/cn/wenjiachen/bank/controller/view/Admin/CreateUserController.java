@@ -78,7 +78,7 @@ public class CreateUserController implements Initializable, Showable {
             try {
                 PermissionText.setText(PermissionService.getPermissionsList(toUpdateUser.getPermissionGroupID()).get(0).getPermissionGroupName());
                 MFAKey = toUpdateUser.getMFA();
-                MFATips.setText("未修改");
+                MFASettingLabel.setText("未修改");
                 isMFA = toUpdateUser.isMFAEnabled();
                 MFAQRCode.setVisible(false);
                 CreateQRCodeButton.setVisible(false);
@@ -108,12 +108,14 @@ public class CreateUserController implements Initializable, Showable {
             if (MFAQRCode.getImage() != null) {
                 MFAQRCode.setImage(null);
             }
+            MFASettingLabel.setVisible(true);
             MFATips.setVisible(true);
         } else {
             ChangeMFAButton.setText("开启MFA");
             MFASettingLabel.setText("未设置");
             MFAQRCode.setVisible(false);
             CreateQRCodeButton.setVisible(false);
+            MFASettingLabel.setVisible(true);
             MFATips.setVisible(true);
         }
     }

@@ -7,10 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 窗口池，用于管理所有窗口。
@@ -168,8 +165,8 @@ public class StagePool {
     public void closeAllStage() {
         for (String name : stageMap.keySet()) {
             stageMap.get(name).close();
-            stageMap.remove(name);
         }
+        stageMap.clear();
     }
 
 
@@ -189,11 +186,14 @@ public class StagePool {
      * @param name 窗口名称
      */
     public void closeAllExcept(String name) {
-        for (String key : stageMap.keySet()) {
+        Set<String> strings = stageMap.keySet();
+        for (String key : strings) {
             if (!key.equals(name)) {
                 stageMap.get(key).close();
-                stageMap.remove(key);
             }
         }
+        Stage stage = stageMap.get(name);
+        stageMap.clear();
+        stageMap.put(name, stage);
     }
 }

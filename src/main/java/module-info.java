@@ -10,7 +10,6 @@ module cn.wenjiachen.bank {
     requires javafx.fxml;
     requires javafx.controls;
     requires java.naming;
-    requires com.alibaba.fastjson2;
 
     requires core;
     requires java.desktop;
@@ -26,8 +25,8 @@ module cn.wenjiachen.bank {
     opens cn.wenjiachen.bank.domain.Permission to javafx.fxml, javafx.base;
     opens cn.wenjiachen.bank.domain.Trans.enums to javafx.fxml;
     opens cn.wenjiachen.bank.domain.Permission.impl to javafx.fxml, javafx.base;
-    exports cn.wenjiachen.bank.DAO;
-    opens cn.wenjiachen.bank.DAO to javafx.fxml;
+    exports cn.wenjiachen.bank.Dao;
+    opens cn.wenjiachen.bank.Dao to javafx.fxml;
     exports cn.wenjiachen.bank.controller.view;
     opens cn.wenjiachen.bank.controller.view to javafx.fxml;
     exports cn.wenjiachen.bank.controller.view.Admin;

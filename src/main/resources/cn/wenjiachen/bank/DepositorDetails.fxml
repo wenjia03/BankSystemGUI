@@ -17,10 +17,11 @@
    <children>
       <TableView fx:id="Table" prefHeight="416.0" prefWidth="992.0" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
-          <TableColumn fx:id="userName" prefWidth="75.0" text="储户姓名" />
+          <TableColumn fx:id="userName" prefWidth="75.0" text="储户户头" />
+          <TableColumn fx:id="userTypeColumn" prefWidth="75.0" text="账户类型" />
           <TableColumn fx:id="userCardID" prefWidth="165.41545867919922" text="储户卡号" />
             <TableColumn fx:id="userBirthday" prefWidth="133.6614990234375" text="出生日期" />
-            <TableColumn fx:id="userIDCard" prefWidth="133.6614990234375" text="储户身份证号" />
+            <TableColumn fx:id="userIDCard" prefWidth="133.6614990234375" text="储户身份证号 / 社会统一信用代号" />
             <TableColumn fx:id="userPhone" prefWidth="165.41545867919922" text="储户电话号码" />
             <TableColumn fx:id="userBalance" prefWidth="133.6614990234375" text="储户账户余额" />
             <TableColumn fx:id="userAddress" prefWidth="133.6614990234375" text="储户地址" />

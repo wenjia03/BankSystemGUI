@@ -2,10 +2,14 @@ package cn.wenjiachen.bank.controller.view;
 
 import cn.wenjiachen.bank.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,6 +54,7 @@ public class AdminMainController implements Initializable {
     private MenuItem details;
 
     /**
+     *
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -5,8 +5,11 @@ import cn.wenjiachen.bank.controller.view.StagePool;
 import cn.wenjiachen.bank.domain.Permission.Permissions;
 import cn.wenjiachen.bank.domain.User;
 import cn.wenjiachen.bank.domain.UserProfile;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -46,7 +49,24 @@ public class Application extends javafx.application.Application {
     }
 
     public static void showMainView() throws IOException {
-        stagePool.LoadStage("Main", "AdminMain.fxml", 640, 480);
+        Stage stage = stagePool.LoadStage("Main", "AdminMain.fxml", 640, 480);
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("确认");
+                alert.setHeaderText("确认退出");
+                alert.setContentText("确认退出登录并关闭系统吗？");
+                alert.showAndWait().ifPresent(response -> {
+                    if (response.getButtonData().isCancelButton()) {
+                        windowEvent.consume();
+                    } else {
+                        stagePool.closeAllStage();
+                        System.exit(0);
+                    }
+                });
+            }
+        });
         stagePool.show("Main");
         stagePool.closeStage("Login");
     }
