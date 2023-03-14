@@ -1,7 +1,7 @@
 package cn.wenjiachen.bank.controller.view.Admin;
 
 import cn.wenjiachen.bank.Application;
-import cn.wenjiachen.bank.Dao.TransException;
+import cn.wenjiachen.bank.exception.TransException;
 import cn.wenjiachen.bank.controller.Showable;
 import cn.wenjiachen.bank.controller.view.StagePool;
 import cn.wenjiachen.bank.domain.Trans.enums.TransType;

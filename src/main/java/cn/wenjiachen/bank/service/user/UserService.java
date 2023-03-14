@@ -2,7 +2,7 @@ package cn.wenjiachen.bank.service.user;
 
 import cn.wenjiachen.bank.Dao.impl.UserDaoImpl;
 import cn.wenjiachen.bank.domain.User;
-import cn.wenjiachen.bank.domain.UserException;
+import cn.wenjiachen.bank.exception.UserException;
 
 import java.sql.SQLException;
 import java.util.List;

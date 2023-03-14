@@ -1,4 +1,4 @@
-package cn.wenjiachen.bank.domain;
+package cn.wenjiachen.bank.exception;
 
 /**
  * 权限类异常

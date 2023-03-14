@@ -49,6 +49,7 @@ public class CreatePermissionGroupController implements Initializable, Showable 
     private String stageName;
 
     /**
+     *
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,7 +98,7 @@ public class CreatePermissionGroupController implements Initializable, Showable 
             error.show();
             return;
         }
-        if(!Application.MFAConfirm()){
+        if (!Application.MFAConfirm()) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setTitle("错误");
             errorAlert.setHeaderText("MFA验证有误");
@@ -131,6 +132,7 @@ public class CreatePermissionGroupController implements Initializable, Showable 
     }
 
     /**
+     *
      */
     @Override
     public void setStagePool(StagePool stagePool, String stageName) {

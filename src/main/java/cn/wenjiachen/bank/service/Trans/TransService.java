@@ -2,7 +2,7 @@ package cn.wenjiachen.bank.service.Trans;
 
 import cn.wenjiachen.bank.Application;
 import cn.wenjiachen.bank.Dao.TransDao;
-import cn.wenjiachen.bank.Dao.TransException;
+import cn.wenjiachen.bank.exception.TransException;
 import cn.wenjiachen.bank.Dao.impl.ProfileTransDaoImpl;
 import cn.wenjiachen.bank.Dao.impl.TransDaoImpl;
 import cn.wenjiachen.bank.domain.Trans.ProfileTrans;

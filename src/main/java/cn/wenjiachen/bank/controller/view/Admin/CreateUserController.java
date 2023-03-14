@@ -5,7 +5,7 @@ import cn.wenjiachen.bank.controller.Showable;
 import cn.wenjiachen.bank.controller.view.StagePool;
 import cn.wenjiachen.bank.domain.Permission.Permissions;
 import cn.wenjiachen.bank.domain.User;
-import cn.wenjiachen.bank.domain.UserException;
+import cn.wenjiachen.bank.exception.UserException;
 import cn.wenjiachen.bank.service.PermissionService;
 import cn.wenjiachen.bank.service.user.UserService;
 import cn.wenjiachen.bank.utils.Securities;

@@ -2,7 +2,7 @@ package cn.wenjiachen.bank.controller.view.Admin;
 
 import cn.wenjiachen.bank.Application;
 import cn.wenjiachen.bank.domain.Permission.Permissions;
-import cn.wenjiachen.bank.domain.PermissionException;
+import cn.wenjiachen.bank.exception.PermissionException;
 import cn.wenjiachen.bank.domain.SearchType;
 import cn.wenjiachen.bank.service.PermissionService;
 import javafx.beans.property.ReadOnlyStringWrapper;

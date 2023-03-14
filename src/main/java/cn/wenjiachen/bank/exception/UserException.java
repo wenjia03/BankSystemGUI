@@ -1,4 +1,4 @@
-package cn.wenjiachen.bank.domain;
+package cn.wenjiachen.bank.exception;
 
 /**
  * 用户异常类，用于处理用户相关的异常。

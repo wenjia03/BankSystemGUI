@@ -1,4 +1,4 @@
-package cn.wenjiachen.bank.Dao;
+package cn.wenjiachen.bank.exception;
 
 /**
  * @author Wenjia Chen

@@ -3,7 +3,7 @@ package cn.wenjiachen.bank.service;
 import cn.wenjiachen.bank.Dao.PermissionDao;
 import cn.wenjiachen.bank.Dao.impl.PermissionDaoImpl;
 import cn.wenjiachen.bank.domain.Permission.Permissions;
-import cn.wenjiachen.bank.domain.PermissionException;
+import cn.wenjiachen.bank.exception.PermissionException;
 import cn.wenjiachen.bank.service.user.UserService;
 
 import java.sql.SQLException;
