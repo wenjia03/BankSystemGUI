@@ -5,6 +5,7 @@ import cn.wenjiachen.bank.controller.view.StagePool;
 import cn.wenjiachen.bank.domain.Permission.Permissions;
 import cn.wenjiachen.bank.domain.User;
 import cn.wenjiachen.bank.domain.UserProfile;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -39,9 +40,42 @@ public class Application extends javafx.application.Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Connection connection = SQLConfig.getDataSource().getConnection();
-        stagePool.LoadStage("Login", "LoginView.fxml");
-        stagePool.show("Login");
+        stagePool.LoadStage("Loading", "Loading.fxml", "欢迎");
+        stagePool.show("Loading");
+        Task task = new Task() {
+            @Override
+            protected Object call() throws Exception {
+                try {
+                    Connection connection = SQLConfig.getDataSource().getConnection();
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("错误");
+                    alert.setHeaderText("数据库连接失败");
+                    alert.setContentText("请检查数据库配置是否正确");
+                    alert.showAndWait();
+                    System.exit(0);
+                }
+                return null;
+            }
+
+            /**
+             *
+             */
+            @Override
+            protected void succeeded() {
+                try {
+                    stagePool.LoadStage("Login", "LoginView.fxml", "请登录");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stagePool.show("Login");
+                stagePool.closeStage("Loading");
+                super.succeeded();
+            }
+        };
+        new Thread(task).start();
     }
 
     public static void main(String[] args) {
@@ -49,7 +83,7 @@ public class Application extends javafx.application.Application {
     }
 
     public static void showMainView() throws IOException {
-        Stage stage = stagePool.LoadStage("Main", "AdminMain.fxml", 640, 480);
+        Stage stage = stagePool.LoadStage("Main", "AdminMain.fxml", 640, 480, "主界面 - " + LoginedUser.getUserName());
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent windowEvent) {

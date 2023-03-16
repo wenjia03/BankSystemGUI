@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="288.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.wenjiachen.bank.controller.view.Loading">
+   <children>
+      <Text layoutX="88.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="银行管理系统" wrappingWidth="452.67691802978516">
+         <font>
+            <Font size="72.0" />
+         </font>
+      </Text>
+      <Text layoutX="133.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请稍后，正在和远端服务器取得联络...">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

@@ -31,5 +31,7 @@ module cn.wenjiachen.bank {
     opens cn.wenjiachen.bank.controller.view to javafx.fxml;
     exports cn.wenjiachen.bank.controller.view.Admin;
     opens cn.wenjiachen.bank.controller.view.Admin to javafx.fxml;
+    opens cn.wenjiachen.bank.exception to javafx.fxml;
+    exports cn.wenjiachen.bank.exception;
 
 }

@@ -82,6 +82,25 @@ public class StagePool {
      * @param name        窗口名称
      * @param FXML        FXML文件
      * @param WindowTitle 窗口标题
+     * @param x           长度
+     * @param y           宽度
+     * @return Stage
+     * @throws IOException 文件读写异常
+     */
+    public Stage LoadStage(String name, String FXML, int x, int y, String WindowTitle) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(FXML));
+        Scene BalanceView = new Scene(fxmlLoader.load(), x, y);
+        Stage stage = new Stage();
+        stage.setTitle(WindowTitle);
+        return getStage(name, fxmlLoader, BalanceView, stage);
+    }
+
+    /**
+     * 加载窗口
+     *
+     * @param name        窗口名称
+     * @param FXML        FXML文件
+     * @param WindowTitle 窗口标题
      * @return Stage
      * @throws IOException 文件读写异常
      */
